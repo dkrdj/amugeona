@@ -28,7 +28,7 @@ public class BoardController {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    public String get(){
+    public String get1234(){
         return "dd";
     }
 }
