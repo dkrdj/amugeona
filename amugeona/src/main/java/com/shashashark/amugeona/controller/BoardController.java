@@ -27,4 +27,9 @@ public class BoardController {
     public ResponseEntity<BoardDto> getBoard(@RequestParam Long boardSeq) {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
     }
+
+    @GetMapping("/get2")
+    public ResponseEntity<List<BoardDto>> getBoard() {
+        return new ResponseEntity<>(boardService.selectAll(), HttpStatus.OK);
+    }
 }
