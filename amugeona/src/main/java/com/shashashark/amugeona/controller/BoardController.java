@@ -28,6 +28,10 @@ public class BoardController {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
     }
 
+    public String get(){
+        return "dd";
+    }
+
     @GetMapping("/ha")
     public String temp() {
         return "ha";
