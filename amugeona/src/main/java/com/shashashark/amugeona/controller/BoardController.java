@@ -24,4 +24,9 @@ public class BoardController {
     public ResponseEntity<BoardDto> getBoard(@RequestParam Long boardSeq) {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> addBoard() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
