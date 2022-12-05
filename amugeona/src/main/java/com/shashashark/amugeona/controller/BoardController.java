@@ -29,4 +29,10 @@ public class BoardController {
     public  ResponseEntity<?> deleteBoard(){
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PostMapping("/create")
+    public ResponseEntity<?> addBoard() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 }
