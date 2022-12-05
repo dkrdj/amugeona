@@ -26,11 +26,12 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete")
-    public  ResponseEntity<?> deleteBoard(){
+    public ResponseEntity<?> deleteBoard() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    @PostMapping("/create")
-    public ResponseEntity<?> addBoard() {
+
+    @PostMapping("/create2")
+    public ResponseEntity<?> addBoard2() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
