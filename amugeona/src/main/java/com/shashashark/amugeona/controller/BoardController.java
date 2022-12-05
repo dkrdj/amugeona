@@ -33,7 +33,7 @@ public class BoardController {
     }
 
     @GetMapping("/ha")
-    public String temp() {
+    public String temp2() {
         return "ha";
     }
 }
