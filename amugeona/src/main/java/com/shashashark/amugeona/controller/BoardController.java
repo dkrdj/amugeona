@@ -31,4 +31,9 @@ public class BoardController {
     public String get(){
         return "dd";
     }
+
+    @GetMapping("/ha")
+    public String temp() {
+        return "ha";
+    }
 }
