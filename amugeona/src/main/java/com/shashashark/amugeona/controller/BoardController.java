@@ -5,10 +5,7 @@ import com.shashashark.amugeona.model.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,11 @@ public class BoardController {
     @GetMapping("/{boardSeq}")
     public ResponseEntity<BoardDto> getBoard(@RequestParam Long boardSeq) {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> addBoard() {
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
