@@ -30,8 +30,8 @@ public class BoardController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/create2")
-    public ResponseEntity<?> addBoard2() {
+    @PostMapping("/create3")
+    public ResponseEntity<?> addBoard3() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
