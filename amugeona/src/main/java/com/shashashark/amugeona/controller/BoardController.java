@@ -29,4 +29,9 @@ public class BoardController {
     public ResponseEntity<?> addBoard() {
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete")
+    public  ResponseEntity<?> deleteBoard(){
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
