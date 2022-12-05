@@ -27,4 +27,8 @@ public class BoardController {
     public ResponseEntity<BoardDto> getBoard(@RequestParam Long boardSeq) {
         return new ResponseEntity<>(boardService.selectOne(boardSeq).orElseThrow(), HttpStatus.OK);
     }
+
+    public String get(){
+        return "dd";
+    }
 }
