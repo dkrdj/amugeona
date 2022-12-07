@@ -30,4 +30,15 @@ public final class JwtUtil {
         Jwts.parser().setSigningKey(SALT.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token);
     }
 
+    //토큰에서 값 추출
+//    public JwtUser getToken(String token) throws Exception {
+//        Jws<Claims> claims = Jwts.parser().setSigningKey(SALT.getBytes("UTF-8")).parseClaimsJws(token);
+//        String id = (String) claims.getBody().get("id");
+//        String userName = (String) claims.getBody().get("name");
+//        String userNickName = (String) claims.getBody().get("nickName");
+//        String profile_img = (String) claims.getBody().get("profile");
+//        JwtUser loginUser = new JwtUser(id, userName, userNickName, profile_img);
+//        return loginUser;
+//    }
+
 }
