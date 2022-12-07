@@ -17,5 +17,5 @@ public class UserDto {
     private Integer age;
     private String name;
     private String nickname;
-    private String profile_img;
+    private String profileImg;
 }

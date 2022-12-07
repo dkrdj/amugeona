@@ -7,7 +7,9 @@ import com.shashashark.amugeona.config.SwaggerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
+@EnableJpaAuditing
 @Import({SwaggerConfig.class, S3Config.class, QueryDslConfig.class, JpaConfig.class})
 @SpringBootApplication
 public class AmugeonaApplication {

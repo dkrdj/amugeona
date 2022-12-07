@@ -29,9 +29,15 @@ public final class JwtUtil {
     }
 
     //토큰에서 값 추출
-    public String getToken(String token) {
+    public UserInfo getToken(String token) {
         Jws<Claims> claims = Jwts.parser().setSigningKey(SALT.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token);
-        return (String) claims.getBody().get("id");
+        return new UserInfo().builder()
+                .userSeq((Long)claims.getBody().get("userSeq"))
+                .id((String)claims.getBody().get("id"))
+                .name((String)claims.getBody().get("name"))
+                .nickname((String)claims.getBody().get("nickname"))
+                .profileImg((String)claims.getBody().get("profileImg"))
+                .build();
     }
 
 }

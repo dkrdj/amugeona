@@ -14,5 +14,5 @@ public class UserUpdateParam {
     private String password;
     private String email;
     private String nickname;
-    private String profile_img;
+    private String profileImg;
 }

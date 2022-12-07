@@ -1,0 +1,113 @@
+Index: .idea/workspace.xml
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -4,7 +4,18 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9c690be7-ae74-49b2-9b6d-36f10bc44f4e" name="Changes" comment="board update" />
++    <list default="true" id="9c690be7-ae74-49b2-9b6d-36f10bc44f4e" name="Changes" comment="article update">
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/dto/ArticleDto.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/dto/ArticleUpdateParam.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/entity/Article.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/repository/ArticleRepository.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/service/ArticleService.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/service/Impl/ArticleServiceImpl.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++    </list>
++    <list id="2bddede8-c469-4604-90fe-0b6313fe5288" name="Changes by dkrdj" comment="">
++      <change beforePath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/service/Impl/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/amugeona/src/main/java/com/shashashark/amugeona/model/service/Impl/BoardServiceImpl.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -20,7 +31,12 @@
+       <state>
+         <projects_view>
+           <tree_state>
+-            <expand />
++            <expand>
++              <path>
++                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
++                <item name="amugeona" type="f1a62948:ProjectNode" />
++              </path>
++            </expand>
+             <select />
+           </tree_state>
+         </projects_view>
+@@ -51,7 +67,7 @@
+     </favorite-branches>
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="board" />
++        <entry key="$PROJECT_DIR$" value="main" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -91,12 +107,15 @@
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "WebServerToolWindowFactoryState": "false",
+-    "last_opened_file_path": "C:/Users/1379p/OneDrive/바탕 화면/SSAFIT",
++    "last_opened_file_path": "C:/Users/1379p/OneDrive/바탕 화면/amugeona",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
++    "project.structure.last.edited": "SDKs",
++    "project.structure.proportion": "0.15",
++    "project.structure.side.proportion": "0.0",
++    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
+     "spring.configuration.checksum": "8ac99aa688555b5bb093d716765e1e8e"
+   },
+   "keyToStringList": {
+@@ -140,6 +159,7 @@
+       <workItem from="1670243204146" duration="7807000" />
+       <workItem from="1670253074133" duration="490000" />
+       <workItem from="1670374191826" duration="15343000" />
++      <workItem from="1670417724267" duration="5364000" />
+     </task>
+     <task id="LOCAL-00001" summary="second update">
+       <created>1670243645370</created>
+@@ -197,7 +217,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1670413590263</updated>
+     </task>
+-    <option name="localTasksCounter" value="9" />
++    <task id="LOCAL-00009" summary="article update">
++      <created>1670417908366</created>
++      <option name="number" value="00009" />
++      <option name="presentableId" value="LOCAL-00009" />
++      <option name="project" value="LOCAL" />
++      <updated>1670417908366</updated>
++    </task>
++    <option name="localTasksCounter" value="10" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -240,6 +267,7 @@
+     <MESSAGE value="ddd" />
+     <MESSAGE value="user update" />
+     <MESSAGE value="board update" />
+-    <option name="LAST_COMMIT_MESSAGE" value="board update" />
++    <MESSAGE value="article update" />
++    <option name="LAST_COMMIT_MESSAGE" value="article update" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/misc.xml
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	
++++ b/.idea/misc.xml	
+@@ -4,5 +4,5 @@
+   <component name="FrameworkDetectionExcludesConfiguration">
+     <file type="web" url="file://$PROJECT_DIR$/amugeona" />
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="azul-11" project-jdk-type="JavaSDK" />
+ </project>
+\ No newline at end of file
