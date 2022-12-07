@@ -1,0 +1,21 @@
+package com.shashashark.amugeona.model.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
+    private Long userSeq;
+    private String id;
+    private String password;
+    private String email;
+    private Integer age;
+    private String name;
+    private String nickname;
+    private String profile_img;
+}

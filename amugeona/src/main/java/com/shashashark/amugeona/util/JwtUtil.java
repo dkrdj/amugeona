@@ -1,5 +1,7 @@
 package com.shashashark.amugeona.util;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Component;
@@ -25,9 +27,10 @@ public final class JwtUtil {
                 .compact();
     }
 
-    //유효성 검사
-    public void valid(String token) throws Exception {
-        Jwts.parser().setSigningKey(SALT.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token);
+    //토큰에서 값 추출
+    public String getToken(String token) {
+        Jws<Claims> claims = Jwts.parser().setSigningKey(SALT.getBytes(StandardCharsets.UTF_8)).parseClaimsJws(token);
+        return (String) claims.getBody().get("id");
     }
 
 }
