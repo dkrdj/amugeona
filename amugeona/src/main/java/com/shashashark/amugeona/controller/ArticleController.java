@@ -52,4 +52,15 @@ public class ArticleController {
         articleService.writeArticle(articleDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
+        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();
+        if (Objects.equals(loginUser.getUserSeq(), article.getArticleSeq())) {
+            articleService.deleteArticle(articleSeq);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(FAIL, HttpStatus.OK);
+    }
 }
