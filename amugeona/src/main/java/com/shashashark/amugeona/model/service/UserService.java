@@ -26,7 +26,7 @@ public interface UserService {
                 .age(userDto.getAge())
                 .name(userDto.getName())
                 .nickname(userDto.getNickname())
-                .profile_img(userDto.getProfile_img())
+                .profile_img(userDto.getProfileImg())
                 .build();
     }
 
@@ -39,7 +39,7 @@ public interface UserService {
                 .age(user.getAge())
                 .name(user.getName())
                 .nickname(user.getNickname())
-                .profile_img(user.getProfile_img())
+                .profileImg(user.getProfile_img())
                 .build();
     }
 

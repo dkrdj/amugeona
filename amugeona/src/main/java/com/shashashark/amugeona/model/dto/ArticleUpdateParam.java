@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ArticleUpdateParam {
+    private Long userSeq;
     private Long articleSeq;
     private String title;
     private String content;

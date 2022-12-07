@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/article")
@@ -35,9 +36,13 @@ public class ArticleController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<String> modify(ArticleUpdateParam param) {
-        articleService.updateArticle(param);
-        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+    public ResponseEntity<String> modify(HttpServletRequest request, ArticleUpdateParam param) {
+        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
+            articleService.updateArticle(param);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
     @PostMapping("/write")
@@ -46,5 +51,16 @@ public class ArticleController {
         articleDto.setUserSeq(loginUser.getUserSeq());
         articleService.writeArticle(articleDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
+        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();
+        if (Objects.equals(loginUser.getUserSeq(), article.getArticleSeq())) {
+            articleService.deleteArticle(articleSeq);
+            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 }

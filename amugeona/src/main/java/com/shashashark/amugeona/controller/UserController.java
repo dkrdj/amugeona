@@ -17,6 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@CrossOrigin
 public class UserController {
     private static final String HEADER_AUTH = "access-token";
     private static final String MESSAGE = "msg";
@@ -65,7 +66,7 @@ public class UserController {
                         .id(user.getId())
                         .name(user.getName())
                         .nickname(user.getNickname())
-                        .profile_img(user.getProfile_img())
+                        .profileImg(user.getProfileImg())
                         .build();
                 result.put(HEADER_AUTH, jwtUtil.createToken("loginUser", token));
                 result.put(MESSAGE, SUCCESS);

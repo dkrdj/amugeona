@@ -7,11 +7,13 @@ import com.shashashark.amugeona.model.repository.UserRepository;
 import com.shashashark.amugeona.model.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
@@ -30,6 +32,6 @@ public class UserServiceImpl implements UserService {
     public void modifyUser(UserUpdateParam param) {
         //유저 불러와서 수정후 다시 집어넣기
         User originUser = userRepository.findById(param.getUserSeq()).orElseThrow();
-        originUser.updateUser(param.getPassword(), param.getEmail(), param.getNickname(), param.getProfile_img());
+        originUser.updateUser(param.getPassword(), param.getEmail(), param.getNickname(), param.getProfileImg());
     }
 }
