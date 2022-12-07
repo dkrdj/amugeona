@@ -1,6 +1,7 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.UserDto;
+import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.entity.User;
 
 import java.util.Optional;
@@ -14,7 +15,7 @@ public interface UserService {
     void addUser(UserDto userDto);
 
     //회원 정보 수정에 사용
-    void modifyUser(UserDto userDto);
+    void modifyUser(UserUpdateParam param);
 
     // DB에 저장할 때
     default User toEntity(UserDto userDto) {

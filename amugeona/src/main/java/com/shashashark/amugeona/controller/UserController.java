@@ -1,7 +1,8 @@
 package com.shashashark.amugeona.controller;
 
-import com.shashashark.amugeona.model.dto.JwtUser;
 import com.shashashark.amugeona.model.dto.UserDto;
+import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.service.UserService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,16 +19,21 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
     private static final String HEADER_AUTH = "access-token";
+    private static final String MESSAGE = "msg";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private final UserService userService;
     private final JwtUtil jwtUtil;
 
     //id를 통해 비밀번호 찾기
-    @PostMapping("/findPwd")
-    public ResponseEntity<String> getUser(String id) {
-        String pwd = userService.getUser(id).orElseThrow().getPassword();
-        return new ResponseEntity<>(pwd, HttpStatus.OK);
+    @GetMapping("/find")
+    public ResponseEntity<String> getUser(String id, String email) {
+        if (userService.getUser(id).orElseThrow().getEmail().equals(email)) {
+            String pwd = userService.getUser(id).orElseThrow().getPassword();
+            return new ResponseEntity<>(pwd, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(FAIL, HttpStatus.OK);
+        }
     }
 
     //회원가입
@@ -39,8 +45,8 @@ public class UserController {
 
     //회원정보 수정
     @PutMapping("/modify")
-    public ResponseEntity<String> modifyUser(@RequestBody UserDto userDto) {
-        userService.modifyUser(userDto);
+    public ResponseEntity<String> modifyUser(@RequestBody UserUpdateParam param) {
+        userService.modifyUser(param);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
@@ -50,40 +56,28 @@ public class UserController {
         UserDto user = userService.getUser(id).orElseThrow();
 
         HashMap<String, Object> result = new HashMap<>();
-        HttpStatus status = null;
+        HttpStatus status;
 
         try {
             if (user.getPassword().equals(password)) {
-                JwtUser token = JwtUser.builder()
+                UserInfo token = UserInfo.builder()
+                        .userSeq(user.getUserSeq())
                         .id(user.getId())
                         .name(user.getName())
                         .nickname(user.getNickname())
                         .profile_img(user.getProfile_img())
                         .build();
-                result.put("access-token", jwtUtil.createToken("loginUser", token));
-                result.put("msg", SUCCESS);
-                status = HttpStatus.ACCEPTED;
+                result.put(HEADER_AUTH, jwtUtil.createToken("loginUser", token));
+                result.put(MESSAGE, SUCCESS);
+            } else {
+                result.put(MESSAGE, FAIL);
             }
+            status = HttpStatus.ACCEPTED;
         } catch (UnsupportedEncodingException e) {
-            result.put("msg", FAIL);
+            result.put(MESSAGE, FAIL);
             status = HttpStatus.INTERNAL_SERVER_ERROR;
         }
 
         return new ResponseEntity<>(result, status);
     }
-
-//    //마이페이지에 나타낼 유저 정보
-//    @GetMapping("/myPage")
-//    public ResponseEntity<JwtUser> detailUser(HttpServletRequest request) {
-//
-//        try {
-//            String token = request.getHeader(HEADER_AUTH);
-//            JwtUser loginUser = jwtUtil.getToken(token);
-//
-//            return new ResponseEntity<>(loginUser, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-//        }
-//
-//    }
 }

@@ -16,9 +16,9 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/ssafit?serverTimezone=UTC
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://amugeona.cqwvfj0vnltg.us-east-1.rds.amazonaws.com:3306/amugeona?serverTimezone=UTC
+    username: dkrdj1000
+    password: tititir1
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -31,7 +31,7 @@ spring:
 cloud:
   aws:
     s3:
-      bucket: final-ssafit
+      bucket: amugeona
     credentials:
       access-key: AKIAZKVDPIUEMPI564X5
       secret-key: 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
