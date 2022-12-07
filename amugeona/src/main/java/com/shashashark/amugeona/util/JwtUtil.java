@@ -1,5 +1,6 @@
 package com.shashashark.amugeona.util;
 
+import com.shashashark.amugeona.model.dto.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
