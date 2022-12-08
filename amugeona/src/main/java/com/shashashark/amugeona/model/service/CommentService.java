@@ -22,7 +22,7 @@ public interface CommentService {
         return new CommentDto().builder()
                 .commentSeq(comment.getCommentSeq())
                 .articleSeq(comment.getArticleSeq())
-                .userSeq(comment.getUser().getUserSeq())
+                .userSeq(comment.getUserSeq())
                 .nickname(comment.getUser().getNickname())
                 .content(comment.getContent())
                 .createdAt(comment.getCreatedAt())
