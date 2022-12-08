@@ -57,7 +57,7 @@ public class ArticleController {
     public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();
-        if (Objects.equals(loginUser.getUserSeq(), article.getArticleSeq())) {
+        if (Objects.equals(loginUser.getUserSeq(), article.getUserSeq())) {
             articleService.deleteArticle(articleSeq);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
