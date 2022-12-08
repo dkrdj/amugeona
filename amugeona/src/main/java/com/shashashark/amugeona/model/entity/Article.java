@@ -16,9 +16,11 @@ public class Article extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long articleSeq;
+    @Column(name = "user_seq")
     private Long userSeq;
 
     @ManyToOne
+    @JoinColumn(name = "user_seq", insertable = false, updatable = false)
     private User user;
 
     private Long boardSeq;

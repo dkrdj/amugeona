@@ -5,12 +5,10 @@ import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.shashashark.amugeona.util.MultipartUtil;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
-@Repository
 public class FileRepository {
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")

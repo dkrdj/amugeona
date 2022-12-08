@@ -28,9 +28,9 @@ public class UserController {
 
     //id를 통해 비밀번호 찾기
     @GetMapping("/find")
-    public ResponseEntity<String> getUser(String id, String email) {
-        if (userService.getUser(id).orElseThrow().getEmail().equals(email)) {
-            String pwd = userService.getUser(id).orElseThrow().getPassword();
+    public ResponseEntity<String> getUser(String userId, String email) {
+        if (userService.getUser(userId).orElseThrow().getEmail().equals(email)) {
+            String pwd = userService.getUser(userId).orElseThrow().getPassword();
             return new ResponseEntity<>(pwd, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(FAIL, HttpStatus.OK);
@@ -63,12 +63,12 @@ public class UserController {
             if (user.getPassword().equals(password)) {
                 UserInfo token = UserInfo.builder()
                         .userSeq(user.getUserSeq())
-                        .id(user.getId())
+                        .userId(user.getUserId())
                         .name(user.getName())
                         .nickname(user.getNickname())
                         .profileImg(user.getProfileImg())
                         .build();
-                result.put(HEADER_AUTH, jwtUtil.createToken("loginUser", token));
+                result.put(HEADER_AUTH, jwtUtil.createToken(token));
                 result.put(MESSAGE, SUCCESS);
             } else {
                 result.put(MESSAGE, FAIL);

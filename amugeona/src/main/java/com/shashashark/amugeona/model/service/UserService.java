@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserService {
 
     //비밀번호 찾기에 사용하기 위한 id로 유저 찾기
-    Optional<UserDto> getUser(String id);
+    Optional<UserDto> getUser(String userId);
 
     //회원가입에 사용
     void addUser(UserDto userDto);
@@ -20,7 +20,7 @@ public interface UserService {
     // DB에 저장할 때
     default User toEntity(UserDto userDto) {
         return new User().builder()
-                .id(userDto.getId())
+                .userId(userDto.getUserId())
                 .password(userDto.getPassword())
                 .email(userDto.getEmail())
                 .age(userDto.getAge())
@@ -33,7 +33,7 @@ public interface UserService {
     //DB에서 불러올때
     default UserDto toDto(User user) {
         return new UserDto().builder()
-                .id(user.getId())
+                .userId(user.getUserId())
                 .password(user.getPassword())
                 .email(user.getEmail())
                 .age(user.getAge())
