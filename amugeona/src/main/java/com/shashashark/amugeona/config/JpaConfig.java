@@ -43,6 +43,6 @@ public class JpaConfig {
 
     @Bean
     public StarService starService() {
-        return new StarServiceImpl(starRepository);
+        return new StarServiceImpl(starRepository, articleRepository);
     }
 }

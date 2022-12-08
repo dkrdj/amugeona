@@ -27,23 +27,41 @@ public class StarServiceImpl implements StarService {
 
     @Override
     public void writeStar(StarDto starDto) {
-        Article article = articleRepository.findById(starDto.getArticleSeq()).orElseThrow();
-        Double starRating = (article.getStarRating() * article.getStarCnt() + starDto.getRate()) / (article.getStarCnt() + 1);
-        article.updateStar(starRating, article.getStarCnt() + 1);
+        updateArticleStar(toEntity(starDto), 0, starDto.getRate());
         starRepository.save(toEntity(starDto));
     }
 
     @Override
     public void updateStar(StarUpdateParam param) {
         Star star = starRepository.findById(param.getStarSeq()).orElseThrow();
-        Article article = articleRepository.findById(star.getArticleSeq()).orElseThrow();
-        Double starRating = (article.getStarRating() * article.getStarCnt() - star.getRate() + param.getRate()) / article.getStarCnt();
-        article.updateStar(starRating, article.getStarCnt());
+        updateArticleStar(star, star.getRate(), param.getRate());
         star.modify(param.getRate());
     }
 
     @Override
     public void deleteStar(Long starSeq) {
+        Star star = starRepository.findById(starSeq).orElseThrow();
+        updateArticleStar(star, star.getRate(), 0);
         starRepository.deleteById(starSeq);
+    }
+
+    private void updateArticleStar(Star star, Integer before, Integer after) {
+        Article article = articleRepository.findById(star.getArticleSeq()).orElseThrow();
+        Double sum = article.getStarRating() * article.getStarCnt();
+        Integer starCnt = article.getStarCnt();
+        sum -= before;
+        sum += after;
+
+        // 별점 등록
+        if (before == 0)
+            starCnt++;
+
+            //별점 삭제
+        else if (after == 0)
+            starCnt--;
+
+        //별점 수정은 cnt변화가 없으므로 그대로
+        article.updateStar(sum / starCnt, starCnt);
+
     }
 }
