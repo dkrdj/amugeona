@@ -51,6 +51,8 @@ public class InbodyController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(HttpServletRequest request) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-
+        //인바디 삭제 다시 생각해보기
+        inbodyService.deleteInbody(loginUser.getUserSeq());
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 }
