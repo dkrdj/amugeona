@@ -22,7 +22,7 @@ public class StarServiceImpl implements StarService {
 
     @Override
     public Optional<StarDto> selectOne(Long userSeq, Long articleSeq) {
-        return Optional.ofNullable(toDto(starRepository.findByUserSeqAndArticleSeq(userSeq, articleSeq)));
+        return Optional.ofNullable(toDto(starRepository.findByUserSeqAndArticleSeq(userSeq, articleSeq).orElseThrow()));
     }
 
     @Override
