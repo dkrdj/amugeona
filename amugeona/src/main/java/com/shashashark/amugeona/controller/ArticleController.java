@@ -47,6 +47,7 @@ public class ArticleController {
 
     @PostMapping("/write")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ArticleDto articleDto) {
+        System.out.println(request.getHeader(HEADER_AUTH));
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         articleDto.setUserSeq(loginUser.getUserSeq());
         articleService.writeArticle(articleDto);

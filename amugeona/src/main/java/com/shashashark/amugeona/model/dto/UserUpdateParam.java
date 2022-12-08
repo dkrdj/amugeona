@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserUpdateParam {
-    private String userSeq;
+    private Long userSeq;
     private String password;
     private String email;
     private String nickname;

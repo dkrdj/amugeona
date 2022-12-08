@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserInfo {
     private Long userSeq;
-    private String id;
+    private String userId;
     private String name;
     private String nickname;
     private String profileImg;

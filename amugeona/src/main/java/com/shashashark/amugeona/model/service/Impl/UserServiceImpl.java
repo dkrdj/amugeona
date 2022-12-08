@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public Optional<UserDto> getUser(String id) {
-        return Optional.ofNullable(toDto(userRepository.findById(id).orElseThrow()));
+    public Optional<UserDto> getUser(String userId) {
+        return Optional.ofNullable(toDto(userRepository.findByUserId(userId).orElseThrow()));
     }
 
     @Override

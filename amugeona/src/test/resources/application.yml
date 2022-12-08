@@ -1,6 +1,11 @@
 #aws 때문에 빌드시 오류뜨는거 방지용인데 잘안됨 수정해야함
 logging:
   level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
     com:
       amazonaws:
         util:
@@ -13,10 +18,16 @@ logging:
               BasicBinder: TRACE
 
 spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
   #db connection
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test
+    url: jdbc:h2:mem:test;NON_KEYWORDS=USER
     username: sa
     password:
   mvc:
