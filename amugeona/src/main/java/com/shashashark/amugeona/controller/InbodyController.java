@@ -1,7 +1,6 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.InbodyDto;
-import com.shashashark.amugeona.model.dto.InbodyUpdateParam;
 import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.InbodyService;
 import com.shashashark.amugeona.util.JwtUtil;
@@ -39,10 +38,10 @@ public class InbodyController {
     }
 
     @PutMapping("/modify")
-    public ResponseEntity<String> modify(HttpServletRequest request, InbodyUpdateParam param) {
+    public ResponseEntity<String> modify(HttpServletRequest request, InbodyDto inbodyDto) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
-            inbodyService.updateInbody(param);
+        if (Objects.equals(inbodyDto.getUserSeq(), loginUser.getUserSeq())) {
+            inbodyService.updateInbody(inbodyDto);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);

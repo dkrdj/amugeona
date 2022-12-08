@@ -1,7 +1,6 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.InbodyDto;
-import com.shashashark.amugeona.model.dto.InbodyUpdateParam;
 import com.shashashark.amugeona.model.entity.Inbody;
 import com.shashashark.amugeona.model.repository.InbodyRepository;
 import com.shashashark.amugeona.model.service.InbodyService;
@@ -28,9 +27,9 @@ public class InbodyServiceImpl implements InbodyService {
     }
 
     @Override
-    public void updateInbody(InbodyUpdateParam param) {
-        Inbody inbody = inbodyRepository.findById(param.getUserSeq()).orElseThrow();
-        inbody.modify(param.getHeight(), param.getWeight(), param.getMuscle(), param.getFat());
+    public void updateInbody(InbodyDto inbodyDto) {
+        Inbody inbody = inbodyRepository.findById(inbodyDto.getUserSeq()).orElseThrow();
+        inbody.modify(inbodyDto.getHeight(), inbodyDto.getWeight(), inbodyDto.getMuscle(), inbodyDto.getFat());
     }
 
     @Override

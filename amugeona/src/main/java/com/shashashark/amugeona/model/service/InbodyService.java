@@ -1,7 +1,6 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.InbodyDto;
-import com.shashashark.amugeona.model.dto.InbodyUpdateParam;
 import com.shashashark.amugeona.model.entity.Inbody;
 
 import java.util.Optional;
@@ -11,7 +10,7 @@ public interface InbodyService {
 
     void writeInbody(InbodyDto inbodyDto);
 
-    void updateInbody(InbodyUpdateParam param);
+    void updateInbody(InbodyDto inbodyDto);
 
     void deleteInbody(Long userSeq);
 
