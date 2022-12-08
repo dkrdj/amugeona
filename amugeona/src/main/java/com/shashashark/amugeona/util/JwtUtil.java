@@ -14,7 +14,7 @@ import java.util.Date;
 @Component
 public final class JwtUtil {
 
-    private static final String SALT = "SSAFIT";
+    private static final String SALT = "AMUGEONA";
 
     //토큰 생성
     public String createToken(String claimId, Object data) throws UnsupportedEncodingException {

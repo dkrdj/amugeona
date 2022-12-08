@@ -1,7 +1,7 @@
 #aws 때문에 빌드시 오류뜨는거 방지용인데 잘안됨 수정해야함
 logging:
   level:
-    org:
+    com:
       amazonaws:
         util:
           EC2MetadataUtils: ERROR
@@ -16,7 +16,7 @@ logging:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://amugeona.cqwvfj0vnltg.us-east-1.rds.amazonaws.com:3306/amugeona?serverTimezone=UTC
+    url: jdbc:mysql://amugeona.cqwvfj0vnltg.us-east-1.rds.amazonaws.com:3306/AMUGEONA
     username: dkrdj1000
     password: tititir1
   mvc:
