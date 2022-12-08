@@ -1,7 +1,6 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.IngredientDto;
-import com.shashashark.amugeona.model.entity.Ingredient;
 import com.shashashark.amugeona.model.repository.IngredientRepository;
 import com.shashashark.amugeona.model.service.IngredientService;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +20,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Optional<IngredientDto> selectOne(String name) {
-        Ingredient ingredient = ingredientRepository.findByName(name).orElseThrow();
-        return Optional.ofNullable(toDto(ingredientRepository.findById(ingredient.getIngredientSeq()).orElseThrow()));
+        return Optional.ofNullable(toDto(ingredientRepository.findByName(name).orElseThrow()));
     }
 
     @Override
