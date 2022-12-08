@@ -30,8 +30,6 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public void writeIngredient(IngredientDto ingredientDto) {
-        //존재하지 않으면 넣기
-        if (ingredientRepository.findByName(ingredientDto.getName()).isEmpty())
             ingredientRepository.save(toEntity(ingredientDto));
     }
 
