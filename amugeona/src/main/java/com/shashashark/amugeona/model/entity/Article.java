@@ -31,4 +31,9 @@ public class Article extends BaseTime {
         this.title = title;
         this.content = content;
     }
+
+    public void updateStar(Double starRating, Integer starCnt) {
+        this.starRating = starRating;
+        this.starCnt = starCnt;
+    }
 }

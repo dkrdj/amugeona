@@ -15,6 +15,7 @@ public class JpaConfig {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
     private final ReplyCommentRepository replyCommentRepository;
+    private final StarRepository starRepository;
     @Bean
     public UserService userService() {
         return new UserServiceImpl(userRepository);
@@ -38,5 +39,10 @@ public class JpaConfig {
     @Bean
     public ReplyCommentService replyCommentService() {
         return new ReplyCommentServiceImpl(replyCommentRepository);
+    }
+
+    @Bean
+    public StarService starService() {
+        return new StarServiceImpl(starRepository, articleRepository);
     }
 }
