@@ -1,17 +1,8 @@
 package com.shashashark.amugeona.config;
 
-import com.shashashark.amugeona.model.repository.ArticleRepository;
-import com.shashashark.amugeona.model.repository.BoardRepository;
-import com.shashashark.amugeona.model.repository.CommentRepository;
-import com.shashashark.amugeona.model.repository.UserRepository;
-import com.shashashark.amugeona.model.service.ArticleService;
-import com.shashashark.amugeona.model.service.BoardService;
-import com.shashashark.amugeona.model.service.CommentService;
-import com.shashashark.amugeona.model.service.Impl.ArticleServiceImpl;
-import com.shashashark.amugeona.model.service.Impl.BoardServiceImpl;
-import com.shashashark.amugeona.model.service.Impl.CommentServiceImpl;
-import com.shashashark.amugeona.model.service.Impl.UserServiceImpl;
-import com.shashashark.amugeona.model.service.UserService;
+import com.shashashark.amugeona.model.repository.*;
+import com.shashashark.amugeona.model.service.*;
+import com.shashashark.amugeona.model.service.Impl.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +14,7 @@ public class JpaConfig {
     private final ArticleRepository articleRepository;
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
+    private final ReplyCommentRepository replyCommentRepository;
     @Bean
     public UserService userService() {
         return new UserServiceImpl(userRepository);
@@ -41,5 +33,10 @@ public class JpaConfig {
     @Bean
     public CommentService commentService() {
         return new CommentServiceImpl(commentRepository);
+    }
+
+    @Bean
+    public ReplyCommentService replyCommentService() {
+        return new ReplyCommentServiceImpl(replyCommentRepository);
     }
 }
