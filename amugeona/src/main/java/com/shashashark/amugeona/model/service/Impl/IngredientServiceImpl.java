@@ -30,7 +30,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public void writeIngredient(IngredientDto ingredientDto) {
-            ingredientRepository.save(toEntity(ingredientDto));
+        ingredientRepository.save(toEntity(ingredientDto));
     }
 
 //    @Override
@@ -43,4 +43,5 @@ public class IngredientServiceImpl implements IngredientService {
 //    public void deleteIngredient(Long ingredientSeq) {
 //        ingredientRepository.deleteById(ingredientSeq);
 //    }
+//
 }
