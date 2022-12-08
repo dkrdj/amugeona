@@ -5,7 +5,6 @@ import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.CommentService;
 import com.shashashark.amugeona.util.JwtUtil;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
