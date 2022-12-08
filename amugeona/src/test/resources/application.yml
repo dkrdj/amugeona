@@ -1,0 +1,42 @@
+#aws 때문에 빌드시 오류뜨는거 방지용인데 잘안됨 수정해야함
+logging:
+  level:
+    org:
+      amazonaws:
+        util:
+          EC2MetadataUtils: ERROR
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+
+#db connection
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  #multifile upload 한도 50MB
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+#aws 설정
+cloud:
+  aws:
+    s3:
+      bucket: amugeona
+    credentials:
+      access-key: AKIAZKVDPIUEMPI564X5
+      secret-key: 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
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
