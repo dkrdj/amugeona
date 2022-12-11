@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
-public class ArticleTest {
+public class ArticleControllerTest {
     @Autowired
     ArticleController articleController;
 
@@ -36,7 +36,6 @@ public class ArticleTest {
                 new UserInfo(1L, "test", "testName", "testNick", "testProfile"));
         userController.addUser(
                 new UserDto(1L, "test", "test", "test@test", 1, "testName", "testNick", "testProfile"));
-        System.out.println(userService.getUser("test").orElseThrow().getPassword());
         assertEquals(userService.getUser("test").orElseThrow().getPassword(), "test");
         ArticleDto articleDto = new ArticleDto().builder()
                 .articleSeq(1L)

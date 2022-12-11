@@ -23,7 +23,6 @@ public class CommentServiceImpl implements CommentService {
     public Optional<CommentDto> selectOne(Long commentSeq) {
         return Optional.ofNullable(toDto(commentRepository.findById(commentSeq).orElseThrow()));
     }
-
     @Override
     public List<CommentDto> selectAll(Long articleSeq) {
         return commentRepository.findAllByArticleSeq(articleSeq).stream().map(this::toDto).collect(Collectors.toList());

@@ -1,11 +1,11 @@
 #aws 때문에 빌드시 오류뜨는거 방지용인데 잘안됨 수정해야함
 logging:
   level:
-    org:
-      hibernate:
-        type:
-          descriptor:
-            sql: trace
+#    org:
+    #      hibernate:
+    #        type:
+    #          descriptor:
+    #            sql: trace
     com:
       amazonaws:
         util:
