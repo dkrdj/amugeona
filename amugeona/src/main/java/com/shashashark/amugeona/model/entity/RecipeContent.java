@@ -18,7 +18,6 @@ public class RecipeContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentSeq;
-
     private Long recipe_seq;
     private String content;
     private Long contentIdx;
