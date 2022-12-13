@@ -16,6 +16,9 @@ public interface RecipeService {
                 .recipeSeq(recipe.getRecipeSeq())
                 .title(recipe.getTitle())
                 .thumbnail(recipe.getThumbnail())
+                .recipeIngredients(recipe.getRecipeIngredients())
+                .recipeContents(recipe.getRecipeContents())
+                .recipeImages(recipe.getRecipeImgs())
                 .build();
     }
 }

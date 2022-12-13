@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
 
-
     @Override
     public Optional<RecipeDto> selectOne(Long recipeSeq) {
         return Optional.ofNullable(toDto(recipeRepository.findById(recipeSeq).orElseThrow()));
