@@ -1,6 +1,7 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.RecipeDto;
+import com.shashashark.amugeona.model.entity.Recipe;
 import com.shashashark.amugeona.model.repository.RecipeRepository;
 import com.shashashark.amugeona.model.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,14 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<RecipeDto> selectAll() {
-        return recipeRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+        return recipeRepository.findAll().stream().map(this::toDtoList).collect(Collectors.toList());
+    }
+
+    private RecipeDto toDtoList(Recipe recipe) {
+        return new RecipeDto().builder()
+                .recipeSeq(recipe.getRecipeSeq())
+                .title(recipe.getTitle())
+                .thumbnail(recipe.getThumbnail())
+                .build();
     }
 }
