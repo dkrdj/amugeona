@@ -17,6 +17,7 @@ public interface ArticleService {
     void updateArticle(ArticleUpdateParam param);
 
     void deleteArticle(Long articleSeq);
+
     default ArticleDto toDto(Article article){
         return new ArticleDto().builder()
                 .articleSeq(article.getArticleSeq())

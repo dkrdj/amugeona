@@ -21,6 +21,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<ArticleDto> selectOne(Long articleSeq) {
+        articleRepository.findById(articleSeq).orElseThrow().updateViewCnt();
         return Optional.ofNullable(toDto(articleRepository.findById(articleSeq).orElseThrow()));
     }
 
