@@ -29,6 +29,8 @@ public class Article extends BaseTime {
     private Double starRating;
     private Integer starCnt;
 
+    private Long viewCnt;
+
     public void modify(String title, String content) {
         this.title = title;
         this.content = content;
@@ -37,5 +39,9 @@ public class Article extends BaseTime {
     public void updateStar(Double starRating, Integer starCnt) {
         this.starRating = starRating;
         this.starCnt = starCnt;
+    }
+
+    public void updateViewCnt() {
+        this.viewCnt++;
     }
 }
