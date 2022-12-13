@@ -19,7 +19,6 @@ public class Recipe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_seq")
     private Long recipeSeq;
-
     private String title;
     private String thumbnail;
 
