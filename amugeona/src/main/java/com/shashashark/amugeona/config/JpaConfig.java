@@ -18,6 +18,10 @@ public class JpaConfig {
     private final StarRepository starRepository;
     private final InbodyRepository inbodyRepository;
     private final IngredientRepository ingredientRepository;
+
+    private final InedibleRepository inedibleRepository;
+    private final RecipeRepository recipeRepository;
+
     @Bean
     public UserService userService() {
         return new UserServiceImpl(userRepository);
@@ -56,5 +60,15 @@ public class JpaConfig {
     @Bean
     public IngredientService ingredientService() {
         return new IngredientServiceImpl(ingredientRepository);
+    }
+
+    @Bean
+    public InedibleService inedibleService() {
+        return new InedibleServiceImpl(inedibleRepository);
+    }
+
+    @Bean
+    public RecipeService recipeService() {
+        return new RecipeServiceImpl(recipeRepository, inedibleRepository);
     }
 }

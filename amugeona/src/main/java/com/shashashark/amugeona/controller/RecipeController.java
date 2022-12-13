@@ -2,6 +2,7 @@ package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.RecipeDto;
 import com.shashashark.amugeona.model.service.RecipeService;
+import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -17,7 +19,10 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin
 public class RecipeController {
+    private static final String HEADER_AUTH = "access-token";
     private final RecipeService recipeService;
+
+    private final JwtUtil jwtUtil;
 
     @GetMapping("/list")
     public ResponseEntity<List<RecipeDto>> list(HttpServletRequest request) {
