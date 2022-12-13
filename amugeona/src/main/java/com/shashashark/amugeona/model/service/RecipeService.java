@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface RecipeService {
     Optional<RecipeDto> selectOne(Long recipeSeq);
 
-    List<RecipeDto> selectAll();
+    List<RecipeDto> selectAll(Long userSeq);
 
     default RecipeDto toDto(Recipe recipe) {
         return new RecipeDto().builder()

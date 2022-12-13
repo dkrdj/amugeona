@@ -20,8 +20,9 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<RecipeDto>> list() {
-        return new ResponseEntity<>(recipeService.selectAll(), HttpStatus.OK);
+    public ResponseEntity<List<RecipeDto>> list(HttpServletRequest request) {
+        Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
+        return new ResponseEntity<>(recipeService.selectAll(userSeq), HttpStatus.OK);
     }
 
     @GetMapping("/detail")
