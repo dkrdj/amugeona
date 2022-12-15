@@ -18,8 +18,7 @@ public class ArticleDto {
     private Long boardSeq;
     private String title;
     private String content;
-    private Double starRating;
-    private Integer starCnt;
+    private Long like;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }

@@ -2,9 +2,9 @@ package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.StarDto;
 import com.shashashark.amugeona.model.dto.StarUpdateParam;
-import com.shashashark.amugeona.model.entity.Article;
+import com.shashashark.amugeona.model.entity.Recipe;
 import com.shashashark.amugeona.model.entity.Star;
-import com.shashashark.amugeona.model.repository.ArticleRepository;
+import com.shashashark.amugeona.model.repository.RecipeRepository;
 import com.shashashark.amugeona.model.repository.StarRepository;
 import com.shashashark.amugeona.model.service.StarService;
 import lombok.RequiredArgsConstructor;
@@ -18,37 +18,37 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StarServiceImpl implements StarService {
     private final StarRepository starRepository;
-    private final ArticleRepository articleRepository;
+    private final RecipeRepository recipeRepository;
 
     @Override
-    public Optional<StarDto> selectOne(Long userSeq, Long articleSeq) {
-        return Optional.ofNullable(toDto(starRepository.findByUserSeqAndArticleSeq(userSeq, articleSeq).orElseThrow()));
+    public Optional<StarDto> selectOne(Long userSeq, Long recipeSeq) {
+        return Optional.ofNullable(toDto(starRepository.findByUserSeqAndRecipeSeq(userSeq, recipeSeq).orElseThrow()));
     }
 
     @Override
     public void writeStar(StarDto starDto) {
-        updateArticleStar(toEntity(starDto), 0, starDto.getRate());
+        updateRecipeStar(toEntity(starDto), 0, starDto.getRate());
         starRepository.save(toEntity(starDto));
     }
 
     @Override
     public void updateStar(StarUpdateParam param) {
         Star star = starRepository.findById(param.getStarSeq()).orElseThrow();
-        updateArticleStar(star, star.getRate(), param.getRate());
+        updateRecipeStar(star, star.getRate(), param.getRate());
         star.modify(param.getRate());
     }
 
     @Override
     public void deleteStar(Long starSeq) {
         Star star = starRepository.findById(starSeq).orElseThrow();
-        updateArticleStar(star, star.getRate(), 0);
+        updateRecipeStar(star, star.getRate(), 0);
         starRepository.deleteById(starSeq);
     }
 
-    private void updateArticleStar(Star star, Integer before, Integer after) {
-        Article article = articleRepository.findById(star.getArticleSeq()).orElseThrow();
-        Double sum = article.getStarRating() * article.getStarCnt();
-        Integer starCnt = article.getStarCnt();
+    private void updateRecipeStar(Star star, Integer before, Integer after) {
+        Recipe recipe = recipeRepository.findById(star.getRecipeSeq()).orElseThrow();
+        Double sum = recipe.getStarRating() * recipe.getStarCnt();
+        Integer starCnt = recipe.getStarCnt();
         sum -= before;
         sum += after;
 
@@ -61,7 +61,7 @@ public class StarServiceImpl implements StarService {
             starCnt--;
 
         //별점 수정은 cnt변화가 없으므로 그대로
-        article.updateStar(sum / starCnt, starCnt);
+        recipe.updateStar(sum / starCnt, starCnt);
 
     }
 }

@@ -7,7 +7,7 @@ import com.shashashark.amugeona.model.entity.Star;
 import java.util.Optional;
 
 public interface StarService {
-    Optional<StarDto> selectOne(Long userSeq, Long articleSeq);
+    Optional<StarDto> selectOne(Long userSeq, Long recipeSeq);
 
     void writeStar(StarDto starDto);
 
@@ -18,7 +18,7 @@ public interface StarService {
     default StarDto toDto(Star star) {
         return new StarDto().builder()
                 .starSeq(star.getStarSeq())
-                .articleSeq(star.getArticleSeq())
+                .recipeSeq(star.getRecipeSeq())
                 .userSeq(star.getUserSeq())
                 .rate(star.getRate())
                 .build();
@@ -27,7 +27,7 @@ public interface StarService {
     default Star toEntity(StarDto starDto) {
         return new Star().builder()
                 .starSeq(starDto.getStarSeq())
-                .articleSeq(starDto.getArticleSeq())
+                .recipeSeq(starDto.getRecipeSeq())
                 .userSeq(starDto.getUserSeq())
                 .rate(starDto.getRate())
                 .build();

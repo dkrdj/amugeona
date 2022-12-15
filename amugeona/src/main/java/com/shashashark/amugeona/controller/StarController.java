@@ -26,9 +26,9 @@ public class StarController {
     private final StarService starService;
 
     @GetMapping("/detail")
-    public ResponseEntity<StarDto> detail(HttpServletRequest request, Long articleSeq) {
+    public ResponseEntity<StarDto> detail(HttpServletRequest request, Long recipeSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        return new ResponseEntity<>(starService.selectOne(loginUser.getUserSeq(), articleSeq).orElseThrow(), HttpStatus.OK);
+        return new ResponseEntity<>(starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow(), HttpStatus.OK);
     }
 
     //작성할 때 article도 업데이트 진행해줘야함
@@ -51,9 +51,9 @@ public class StarController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
+    public ResponseEntity<String> delete(HttpServletRequest request, Long recipeSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        StarDto starDto = starService.selectOne(loginUser.getUserSeq(), articleSeq).orElseThrow();
+        StarDto starDto = starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow();
         if (Objects.equals(loginUser.getUserSeq(), starDto.getUserSeq())) {
             starService.deleteStar(starDto.getStarSeq());
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

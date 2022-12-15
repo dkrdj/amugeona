@@ -64,4 +64,20 @@ public class ArticleController {
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
+
+    @PostMapping("/like")
+    public ResponseEntity<String> like(HttpServletRequest request, Long articleSeq) {
+        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        String result;
+        HttpStatus status;
+        if (loginUser != null) {
+            articleService.updateLike(articleSeq);
+            status = HttpStatus.OK;
+            result = SUCCESS;
+        } else {
+            status = HttpStatus.UNAUTHORIZED;
+            result = FAIL;
+        }
+        return new ResponseEntity<>(result, status);
+    }
 }

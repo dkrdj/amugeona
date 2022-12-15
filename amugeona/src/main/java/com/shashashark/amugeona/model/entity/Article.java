@@ -26,8 +26,7 @@ public class Article extends BaseTime {
     private Long boardSeq;
     private String title;
     private String content;
-    private Double starRating;
-    private Integer starCnt;
+    private Long like;
 
     private Long viewCnt;
 
@@ -36,9 +35,8 @@ public class Article extends BaseTime {
         this.content = content;
     }
 
-    public void updateStar(Double starRating, Integer starCnt) {
-        this.starRating = starRating;
-        this.starCnt = starCnt;
+    public void updateLike(Long like) {
+        this.like = like;
     }
 
     public void updateViewCnt() {

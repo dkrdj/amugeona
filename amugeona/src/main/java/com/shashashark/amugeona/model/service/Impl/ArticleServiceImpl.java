@@ -45,4 +45,10 @@ public class ArticleServiceImpl implements ArticleService {
     public void deleteArticle(Long articleSeq) {
         articleRepository.deleteById(articleSeq);
     }
+
+    @Override
+    public void updateLike(Long articleSeq) {
+        Article article = articleRepository.findById(articleSeq).orElseThrow();
+        article.updateLike(article.getLike() + 1);
+    }
 }

@@ -42,6 +42,6 @@ public final class JwtUtil {
                 .nickname((String)claims.getBody().get("nickname"))
                 .profileImg((String)claims.getBody().get("profileImg"))
                 .build();
-    }
+}
 
 }

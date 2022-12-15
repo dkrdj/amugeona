@@ -19,6 +19,8 @@ public interface RecipeService {
                 .recipeIngredients(recipe.getRecipeIngredients())
                 .recipeContents(recipe.getRecipeContents())
                 .recipeImages(recipe.getRecipeImgs())
+                .starRating(recipe.getStarRating())
+                .starCnt(recipe.getStarCnt())
                 .build();
     }
 }

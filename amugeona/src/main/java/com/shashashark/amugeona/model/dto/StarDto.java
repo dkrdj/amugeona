@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StarDto {
     private Long starSeq;
-    private Long articleSeq;
+    private Long recipeSeq;
     private Long userSeq;
     private Integer rate;
 }

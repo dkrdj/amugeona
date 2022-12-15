@@ -18,7 +18,8 @@ public class RecipeDto {
     private Long recipeSeq;
     private String title;
     private String thumbnail;
-
+    private Double starRating;
+    private Integer starCnt;
     private List<RecipeIngredient> recipeIngredients;
     private List<RecipeContent> recipeContents;
     private List<RecipeImage> recipeImages;

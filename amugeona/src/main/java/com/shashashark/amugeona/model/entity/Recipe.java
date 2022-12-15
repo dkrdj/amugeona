@@ -22,7 +22,7 @@ public class Recipe {
     private String title;
     private String thumbnail;
     private Double starRating;
-    private Integer star_cnt;
+    private Integer starCnt;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_seq")
@@ -36,4 +36,8 @@ public class Recipe {
     @JoinColumn(name = "recipe_seq")
     private List<RecipeContent> recipeContents;
 
+    public void updateStar(Double starRating, Integer starCnt) {
+        this.starRating = starRating;
+        this.starCnt = starCnt;
+    }
 }
