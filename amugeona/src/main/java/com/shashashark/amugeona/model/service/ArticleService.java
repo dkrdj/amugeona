@@ -18,7 +18,9 @@ public interface ArticleService {
 
     void deleteArticle(Long articleSeq);
 
-    default ArticleDto toDto(Article article){
+    void updateLike(Long articleSeq);
+
+    default ArticleDto toDto(Article article) {
         return new ArticleDto().builder()
                 .articleSeq(article.getArticleSeq())
                 .userSeq(article.getUserSeq())
@@ -26,8 +28,7 @@ public interface ArticleService {
                 .boardSeq(article.getBoardSeq())
                 .title(article.getTitle())
                 .content(article.getContent())
-                .starRating(article.getStarRating())
-                .starCnt(article.getStarCnt())
+                .like(article.getLike())
                 .createdAt(article.getCreatedAt())
                 .modifiedAt(article.getModifiedAt())
                 .build();
@@ -40,8 +41,7 @@ public interface ArticleService {
                 .boardSeq(articleDto.getBoardSeq())
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
-                .starRating(articleDto.getStarRating())
-                .starCnt(articleDto.getStarCnt())
+                .like(articleDto.getLike())
                 .build();
     }
 }

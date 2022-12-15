@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface StarRepository extends JpaRepository<Star, Long> {
 
-    Optional<Star> findByUserSeqAndArticleSeq(Long userSeq, Long articleSeq);
+    Optional<Star> findByUserSeqAndRecipeSeq(Long userSeq, Long recipeSeq);
 }
