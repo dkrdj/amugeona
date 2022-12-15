@@ -21,6 +21,8 @@ public class Recipe {
     private Long recipeSeq;
     private String title;
     private String thumbnail;
+    private Double starRating;
+    private Integer star_cnt;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_seq")
