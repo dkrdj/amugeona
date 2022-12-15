@@ -15,17 +15,11 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Star {
-
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long starSeq;
-
-    private Long recipeSeq;
+    private Long fileSeq;
     private Long userSeq;
-    private Integer rate;
-
-    public void modify(Integer rate) {
-        this.rate = rate;
-    }
+    private String path;
+    private String articleSeq;
 }
