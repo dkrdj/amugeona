@@ -9,7 +9,6 @@ import java.util.Optional;
 public interface RecipeService {
     Optional<RecipeDto> selectOne(Long recipeSeq);
 
-    List<RecipeDto> selectAll(Long userSeq);
 
     default RecipeDto toDto(Recipe recipe) {
         return new RecipeDto().builder()
@@ -23,4 +22,9 @@ public interface RecipeService {
                 .starCnt(recipe.getStarCnt())
                 .build();
     }
+
+
+    List<RecipeDto> selectAll(Long userSeq, String orderBy, int page);
+
+    List<RecipeDto> searchTitle(Long userSeq, String title, int page);
 }

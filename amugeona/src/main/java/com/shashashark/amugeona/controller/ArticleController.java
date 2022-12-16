@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
-import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
-import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.param.ArticleUpdateParam;
+import com.shashashark.amugeona.model.param.UserInfo;
 import com.shashashark.amugeona.model.service.ArticleService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,23 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<ArticleDto>> list(Long boardSeq) {
-        return new ResponseEntity<>(articleService.selectAll(boardSeq), HttpStatus.OK);
+    public ResponseEntity<List<ArticleDto>> list(Long boardSeq, String orderBy, int page) {
+        return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")
     public ResponseEntity<ArticleDto> detail(Long articleSeq) {
         return new ResponseEntity<>(articleService.selectOne(articleSeq).orElseThrow(), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-title")
+    public ResponseEntity<List<ArticleDto>> searchTitle(String title, int page) {
+        return new ResponseEntity<>(articleService.searchTitle(title, page), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-content")
+    public ResponseEntity<List<ArticleDto>> searchContent(String content, int page) {
+        return new ResponseEntity<>(articleService.searchContent(content, page), HttpStatus.OK);
     }
 
     @PutMapping("/modify")

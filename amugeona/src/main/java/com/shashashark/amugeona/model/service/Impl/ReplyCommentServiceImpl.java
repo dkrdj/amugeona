@@ -1,11 +1,12 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.ReplyCommentDto;
-import com.shashashark.amugeona.model.dto.ReplyCommentUpdateParam;
 import com.shashashark.amugeona.model.entity.ReplyComment;
+import com.shashashark.amugeona.model.param.ReplyCommentUpdateParam;
 import com.shashashark.amugeona.model.repository.ReplyCommentRepository;
 import com.shashashark.amugeona.model.service.ReplyCommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,8 +26,9 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
     }
 
     @Override
-    public List<ReplyCommentDto> selectAll(Long rootSeq) {
-        return replyCommentRepository.findAllByRootSeq(rootSeq).stream().map(this::toDto).collect(Collectors.toList());
+    public List<ReplyCommentDto> selectAll(Long rootSeq, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return replyCommentRepository.findAllByRootSeq(rootSeq, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override

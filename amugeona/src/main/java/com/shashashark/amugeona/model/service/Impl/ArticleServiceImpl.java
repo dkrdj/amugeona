@@ -1,11 +1,13 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
-import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
 import com.shashashark.amugeona.model.entity.Article;
+import com.shashashark.amugeona.model.param.ArticleUpdateParam;
 import com.shashashark.amugeona.model.repository.ArticleRepository;
 import com.shashashark.amugeona.model.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +28,23 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> selectAll(Long boardSeq) {
-        return articleRepository.findAllByBoardSeq(boardSeq).stream().map(this::toDto).collect(Collectors.toList());
+    public List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return articleRepository.findAllSorted(boardSeq, pageRequest, sort).stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<ArticleDto> searchTitle(String title, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return articleRepository.findAllByTitleLike(title, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> searchContent(String content, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return articleRepository.findAllByContentLike(content, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override

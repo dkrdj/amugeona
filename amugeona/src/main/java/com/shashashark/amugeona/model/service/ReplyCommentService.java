@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.ReplyCommentDto;
-import com.shashashark.amugeona.model.dto.ReplyCommentUpdateParam;
 import com.shashashark.amugeona.model.entity.ReplyComment;
+import com.shashashark.amugeona.model.param.ReplyCommentUpdateParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface ReplyCommentService {
     Optional<ReplyCommentDto> selectOne(Long replySeq);
 
-    List<ReplyCommentDto> selectAll(Long rootSeq);
+
+    List<ReplyCommentDto> selectAll(Long rootSeq, int page);
 
     void writeReply(ReplyCommentDto replyCommentDto);
 

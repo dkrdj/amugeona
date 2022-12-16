@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.CommentDto;
-import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.entity.Comment;
+import com.shashashark.amugeona.model.param.CommentUpdateParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface CommentService {
     Optional<CommentDto> selectOne(Long commentSeq);
 
-    List<CommentDto> selectAll(Long articleSeq);
+
+    List<CommentDto> selectAll(Long articleSeq, int page);
 
     void writeComment(CommentDto commentDto);
 

@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
-import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.RecipeCommentDto;
 import com.shashashark.amugeona.model.entity.RecipeComment;
+import com.shashashark.amugeona.model.param.CommentUpdateParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,8 @@ public interface RecipeCommentService {
 
     Optional<RecipeCommentDto> selectOne(Long commentSeq);
 
-    List<RecipeCommentDto> selectAll(Long recipeSeq);
+
+    List<RecipeCommentDto> selectAll(Long recipeSeq, int page);
 
     void writeComment(RecipeCommentDto recipeCommentDto);
 

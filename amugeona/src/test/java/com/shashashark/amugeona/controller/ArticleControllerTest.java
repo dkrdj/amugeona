@@ -1,9 +1,9 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
-import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
 import com.shashashark.amugeona.model.dto.UserDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.param.ArticleUpdateParam;
+import com.shashashark.amugeona.model.param.UserInfo;
 import com.shashashark.amugeona.model.service.UserService;
 import com.shashashark.amugeona.util.JwtUtil;
 import org.junit.jupiter.api.DisplayName;

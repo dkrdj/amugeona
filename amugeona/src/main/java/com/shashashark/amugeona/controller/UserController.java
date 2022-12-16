@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.UserDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
-import com.shashashark.amugeona.model.dto.UserUpdateParam;
+import com.shashashark.amugeona.model.param.UserInfo;
+import com.shashashark.amugeona.model.param.UserUpdateParam;
 import com.shashashark.amugeona.model.service.UserService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;

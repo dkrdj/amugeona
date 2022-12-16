@@ -1,18 +1,21 @@
 package com.shashashark.amugeona.model.entity;
 
+import com.shashashark.amugeona.model.param.InediblePK;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Inedible {
+@IdClass(InediblePK.class)
+public class Inedible implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class Inedible {
     private Long ingredientSeq;
 
     @OneToOne
-    @JoinColumn(name = "ingredient_seq")
+    @JoinColumn(name = "ingredient_seq", insertable = false, updatable = false)
     private Ingredient ingredient;
 
     @Id

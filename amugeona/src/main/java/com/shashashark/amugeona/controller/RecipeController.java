@@ -25,9 +25,15 @@ public class RecipeController {
     private final JwtUtil jwtUtil;
 
     @GetMapping("/list")
-    public ResponseEntity<List<RecipeDto>> list(HttpServletRequest request) {
+    public ResponseEntity<List<RecipeDto>> list(HttpServletRequest request, String orderBy, int page) {
         Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
-        return new ResponseEntity<>(recipeService.selectAll(userSeq), HttpStatus.OK);
+        return new ResponseEntity<>(recipeService.selectAll(userSeq, orderBy, page), HttpStatus.OK);
+    }
+
+    @GetMapping("/search-title")
+    public ResponseEntity<List<RecipeDto>> searchTitle(HttpServletRequest request, String title, int page) {
+        Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
+        return new ResponseEntity<>(recipeService.searchTitle(userSeq, title, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")

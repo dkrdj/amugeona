@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.ReplyCommentDto;
-import com.shashashark.amugeona.model.dto.ReplyCommentUpdateParam;
-import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.param.ReplyCommentUpdateParam;
+import com.shashashark.amugeona.model.param.UserInfo;
 import com.shashashark.amugeona.model.service.ReplyCommentService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -26,8 +26,8 @@ public class ReplyCommentController {
     private final ReplyCommentService replyCommentService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<ReplyCommentDto>> list(Long rootSeq) {
-        return new ResponseEntity<>(replyCommentService.selectAll(rootSeq), HttpStatus.OK);
+    public ResponseEntity<List<ReplyCommentDto>> list(Long rootSeq, int page) {
+        return new ResponseEntity<>(replyCommentService.selectAll(rootSeq, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")

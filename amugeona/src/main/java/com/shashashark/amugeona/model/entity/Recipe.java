@@ -25,15 +25,15 @@ public class Recipe {
     private Integer starCnt;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_seq")
+    @JoinColumn(name = "recipe_seq", insertable = false, updatable = false)
     private List<RecipeIngredient> recipeIngredients;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_seq")
+    @JoinColumn(name = "recipe_seq", insertable = false, updatable = false)
     private List<RecipeImage> recipeImgs;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recipe_seq")
+    @JoinColumn(name = "recipe_seq", insertable = false, updatable = false)
     private List<RecipeContent> recipeContents;
 
     public void updateStar(Double starRating, Integer starCnt) {

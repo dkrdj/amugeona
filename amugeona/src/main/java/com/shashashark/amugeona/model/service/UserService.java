@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.UserDto;
-import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.entity.User;
+import com.shashashark.amugeona.model.param.UserUpdateParam;
 
 import java.util.Optional;
 

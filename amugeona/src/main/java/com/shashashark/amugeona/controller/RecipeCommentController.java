@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
-import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.RecipeCommentDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.param.CommentUpdateParam;
+import com.shashashark.amugeona.model.param.UserInfo;
 import com.shashashark.amugeona.model.service.RecipeCommentService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class RecipeCommentController {
     private final RecipeCommentService recipeCommentService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<RecipeCommentDto>> list(Long recipeSeq) {
-        return new ResponseEntity<>(recipeCommentService.selectAll(recipeSeq), HttpStatus.OK);
+    public ResponseEntity<List<RecipeCommentDto>> list(Long recipeSeq, int page) {
+        return new ResponseEntity<>(recipeCommentService.selectAll(recipeSeq, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")

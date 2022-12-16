@@ -1,11 +1,12 @@
 package com.shashashark.amugeona.model.service.Impl;
 
-import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.RecipeCommentDto;
 import com.shashashark.amugeona.model.entity.RecipeComment;
+import com.shashashark.amugeona.model.param.CommentUpdateParam;
 import com.shashashark.amugeona.model.repository.RecipeCommentRepository;
 import com.shashashark.amugeona.model.service.RecipeCommentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +28,9 @@ public class RecipeCommentServiceImpl implements RecipeCommentService {
     }
 
     @Override
-    public List<RecipeCommentDto> selectAll(Long recipeSeq) {
-        return recipeCommentRepository.findAllByRecipeSeq(recipeSeq).stream().map(this::toDto).collect(Collectors.toList());
+    public List<RecipeCommentDto> selectAll(Long recipeSeq, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return recipeCommentRepository.findAllByRecipeSeq(recipeSeq, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override

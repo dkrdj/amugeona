@@ -8,6 +8,8 @@ import com.shashashark.amugeona.model.repository.InedibleRepository;
 import com.shashashark.amugeona.model.repository.RecipeRepository;
 import com.shashashark.amugeona.model.service.RecipeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +30,20 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<RecipeDto> selectAll(Long userSeq) {
-        return recipeRepository.findAll().stream()
+    public List<RecipeDto> selectAll(Long userSeq, String orderBy, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
+        return recipeRepository.findAll(sort, pageRequest).stream()
+                .filter(recipe -> !isContain(
+                        recipe.getRecipeIngredients().stream().map(RecipeIngredient::getIngredientSeq).collect(Collectors.toList()),
+                        inedibleRepository.findAllByUserSeq(userSeq).stream().map(Inedible::getIngredientSeq).collect(Collectors.toList())))
+                .map(this::toDtoList).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RecipeDto> searchTitle(Long userSeq, String title, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        return recipeRepository.findAllByTitleLike(title, pageRequest).stream()
                 .filter(recipe -> !isContain(
                         recipe.getRecipeIngredients().stream().map(RecipeIngredient::getIngredientSeq).collect(Collectors.toList()),
                         inedibleRepository.findAllByUserSeq(userSeq).stream().map(Inedible::getIngredientSeq).collect(Collectors.toList())))

@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.StarDto;
-import com.shashashark.amugeona.model.dto.StarUpdateParam;
 import com.shashashark.amugeona.model.entity.Star;
+import com.shashashark.amugeona.model.param.StarUpdateParam;
 
 import java.util.Optional;
 

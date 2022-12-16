@@ -1,4 +1,4 @@
-package com.shashashark.amugeona.model.dto;
+package com.shashashark.amugeona.model.param;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
