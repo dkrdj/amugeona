@@ -30,8 +30,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
-        PageRequest pageRequest = PageRequest.of(page, 10);
-        return articleRepository.findAllSorted(boardSeq, pageRequest, sort).stream().map(this::toDto).collect(Collectors.toList());
+        PageRequest pageRequest = PageRequest.of(page, 10, sort);
+        return articleRepository.findAllByBoardSeq(boardSeq, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
 

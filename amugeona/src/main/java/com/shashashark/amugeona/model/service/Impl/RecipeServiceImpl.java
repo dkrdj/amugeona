@@ -31,9 +31,9 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public List<RecipeDto> selectAll(Long userSeq, String orderBy, int page) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
-        return recipeRepository.findAll(sort, pageRequest).stream()
+        PageRequest pageRequest = PageRequest.of(page, 10, sort);
+        return recipeRepository.findAll(pageRequest).stream()
                 .filter(recipe -> !isContain(
                         recipe.getRecipeIngredients().stream().map(RecipeIngredient::getIngredientSeq).collect(Collectors.toList()),
                         inedibleRepository.findAllByUserSeq(userSeq).stream().map(Inedible::getIngredientSeq).collect(Collectors.toList())))
