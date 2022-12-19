@@ -20,7 +20,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public Optional<IngredientDto> selectOne(String name) {
-        return Optional.ofNullable(toDto(ingredientRepository.findByName(name).orElseThrow()));
+        return Optional.ofNullable(toDto(ingredientRepository.findByNameContaining(name).orElseThrow()));
     }
 
     @Override

@@ -69,7 +69,7 @@ public class JpaConfig {
 
     @Bean
     public RecipeService recipeService() {
-        return new RecipeServiceImpl(recipeRepository, inedibleRepository);
+        return new RecipeServiceImpl(recipeRepository);
     }
 
     @Bean

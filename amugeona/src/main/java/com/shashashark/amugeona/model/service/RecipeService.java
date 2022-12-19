@@ -26,5 +26,5 @@ public interface RecipeService {
 
     List<RecipeDto> selectAll(Long userSeq, String orderBy, int page);
 
-    List<RecipeDto> searchTitle(Long userSeq, String title, int page);
+    List<RecipeDto> searchTitle(Long userSeq, String orderBy, String title, int page);
 }

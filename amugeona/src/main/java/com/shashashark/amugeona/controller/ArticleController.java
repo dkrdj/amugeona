@@ -36,13 +36,13 @@ public class ArticleController {
     }
 
     @GetMapping("/search-title")
-    public ResponseEntity<List<ArticleDto>> searchTitle(String title, int page) {
-        return new ResponseEntity<>(articleService.searchTitle(title, page), HttpStatus.OK);
+    public ResponseEntity<List<ArticleDto>> searchTitle(String title, String orderBy, int page) {
+        return new ResponseEntity<>(articleService.searchTitle(title, orderBy, page), HttpStatus.OK);
     }
 
     @GetMapping("/search-content")
-    public ResponseEntity<List<ArticleDto>> searchContent(String content, int page) {
-        return new ResponseEntity<>(articleService.searchContent(content, page), HttpStatus.OK);
+    public ResponseEntity<List<ArticleDto>> searchContent(String content, String orderBy, int page) {
+        return new ResponseEntity<>(articleService.searchContent(content, orderBy, page), HttpStatus.OK);
     }
 
     @PutMapping("/modify")

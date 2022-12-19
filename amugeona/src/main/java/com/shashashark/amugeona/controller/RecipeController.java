@@ -31,9 +31,9 @@ public class RecipeController {
     }
 
     @GetMapping("/search-title")
-    public ResponseEntity<List<RecipeDto>> searchTitle(HttpServletRequest request, String title, int page) {
+    public ResponseEntity<List<RecipeDto>> searchTitle(HttpServletRequest request, String orderBy, String title, int page) {
         Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
-        return new ResponseEntity<>(recipeService.searchTitle(userSeq, title, page), HttpStatus.OK);
+        return new ResponseEntity<>(recipeService.searchTitle(userSeq, orderBy, title, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")

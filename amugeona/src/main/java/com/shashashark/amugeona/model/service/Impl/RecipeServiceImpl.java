@@ -1,10 +1,7 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.RecipeDto;
-import com.shashashark.amugeona.model.entity.Inedible;
 import com.shashashark.amugeona.model.entity.Recipe;
-import com.shashashark.amugeona.model.entity.RecipeIngredient;
-import com.shashashark.amugeona.model.repository.InedibleRepository;
 import com.shashashark.amugeona.model.repository.RecipeRepository;
 import com.shashashark.amugeona.model.service.RecipeService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +19,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
-    private final InedibleRepository inedibleRepository;
 
     @Override
     public Optional<RecipeDto> selectOne(Long recipeSeq) {
@@ -33,21 +29,14 @@ public class RecipeServiceImpl implements RecipeService {
     public List<RecipeDto> selectAll(Long userSeq, String orderBy, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
         PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return recipeRepository.findAll(pageRequest).stream()
-                .filter(recipe -> !isContain(
-                        recipe.getRecipeIngredients().stream().map(RecipeIngredient::getIngredientSeq).collect(Collectors.toList()),
-                        inedibleRepository.findAllByUserSeq(userSeq).stream().map(Inedible::getIngredientSeq).collect(Collectors.toList())))
-                .map(this::toDtoList).collect(Collectors.toList());
+        return recipeRepository.findAll(userSeq, pageRequest).stream().map(this::toDtoList).collect(Collectors.toList());
     }
 
     @Override
-    public List<RecipeDto> searchTitle(Long userSeq, String title, int page) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
-        return recipeRepository.findAllByTitleLike(title, pageRequest).stream()
-                .filter(recipe -> !isContain(
-                        recipe.getRecipeIngredients().stream().map(RecipeIngredient::getIngredientSeq).collect(Collectors.toList()),
-                        inedibleRepository.findAllByUserSeq(userSeq).stream().map(Inedible::getIngredientSeq).collect(Collectors.toList())))
-                .map(this::toDtoList).collect(Collectors.toList());
+    public List<RecipeDto> searchTitle(Long userSeq, String orderBy, String title, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
+        PageRequest pageRequest = PageRequest.of(page, 10, sort);
+        return recipeRepository.searchTitle(title, userSeq, pageRequest).stream().map(this::toDtoList).collect(Collectors.toList());
     }
 
     private RecipeDto toDtoList(Recipe recipe) {
@@ -56,13 +45,5 @@ public class RecipeServiceImpl implements RecipeService {
                 .title(recipe.getTitle())
                 .thumbnail(recipe.getThumbnail())
                 .build();
-    }
-
-    private boolean isContain(List<Long> list1, List<Long> list2) {
-        for (Long seq : list1) {
-            if (list2.contains(seq))
-                return true;
-        }
-        return false;
     }
 }

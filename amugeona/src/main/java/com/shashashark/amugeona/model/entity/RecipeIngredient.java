@@ -19,12 +19,10 @@ import java.io.Serializable;
 public class RecipeIngredient implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipe_seq")
     private Long recipeSeq;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredient_seq")
     private Long ingredientSeq;
 

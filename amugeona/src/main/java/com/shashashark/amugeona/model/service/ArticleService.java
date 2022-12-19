@@ -13,9 +13,9 @@ public interface ArticleService {
 
     List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page);
 
-    List<ArticleDto> searchTitle(String title, int page);
+    List<ArticleDto> searchTitle(String title, String orderBy, int page);
 
-    List<ArticleDto> searchContent(String content, int page);
+    List<ArticleDto> searchContent(String content, String orderBy, int page);
 
     void writeArticle(ArticleDto articleDto);
 

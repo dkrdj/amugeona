@@ -20,10 +20,8 @@ public class Comment extends BaseTime {
 
     private Long articleSeq;
 
-    @Column(name = "user_seq")
-    private Long userSeq;
     @ManyToOne
-    @JoinColumn(name = "user_seq", insertable = false, updatable = false)
+    @JoinColumn(name = "user_seq")
     private User user;
 
     private String content;

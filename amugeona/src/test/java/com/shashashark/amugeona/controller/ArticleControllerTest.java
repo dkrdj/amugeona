@@ -30,6 +30,7 @@ public class ArticleControllerTest {
     @Test
     @DisplayName("아티클 컨트롤러 테스트")
     void article() throws Exception {
+        //given
         MockHttpServletRequest request = new MockHttpServletRequest();
         JwtUtil jwtUtil = new JwtUtil();
         String token = jwtUtil.createToken(
@@ -42,20 +43,18 @@ public class ArticleControllerTest {
                 .boardSeq(1L)
                 .title("테스트 제목")
                 .content("테스트 내용")
-                .starRating(5.0)
-                .starCnt(3)
+                .like(20L)
                 .build();
 
         ArticleUpdateParam param =
                 new ArticleUpdateParam(1L, 1L, "제목 변경", "내용 변경");
 
-        //given
         request.addHeader("access-token", token);
 
         //when
         articleController.write(request, articleDto);
-        //then
         ArticleDto result = articleController.detail(1L).getBody();
+        //then
         assert result != null;
         assertEquals(result.getUserSeq(), 1L);
         assertEquals(result.getTitle(), "테스트 제목");

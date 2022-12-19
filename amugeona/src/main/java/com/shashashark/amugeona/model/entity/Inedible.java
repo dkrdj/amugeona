@@ -18,7 +18,6 @@ import java.io.Serializable;
 public class Inedible implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredient_seq")
     private Long ingredientSeq;
 
@@ -27,6 +26,5 @@ public class Inedible implements Serializable {
     private Ingredient ingredient;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userSeq;
 }

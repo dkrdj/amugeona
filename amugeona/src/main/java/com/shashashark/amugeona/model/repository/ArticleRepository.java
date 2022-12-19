@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    List<Article> findAllByTitleLike(String title, Pageable pageable);
+    List<Article> findAllByTitleContaining(String title, Pageable pageable);
 
-    List<Article> findAllByContentLike(String title, Pageable pageable);
+    List<Article> findAllByContentContaining(String title, Pageable pageable);
 
     List<Article> findAllByBoardSeq(Long boardSeq, Pageable pageable);
 
