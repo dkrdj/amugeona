@@ -30,9 +30,10 @@ public class InedibleController {
     }
 
     @PostMapping("/write")
-    public ResponseEntity<String> write(HttpServletRequest request, @RequestBody InedibleDto inedibleDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        inedibleDto.setUserSeq(loginUser.getUserSeq());
+    public ResponseEntity<String> write(HttpServletRequest request, Long ingredientSeq) {
+        Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
+        InedibleDto inedibleDto = new InedibleDto().builder()
+                .ingredientSeq(ingredientSeq).userSeq(userSeq).build();
         inedibleService.writeInedible(inedibleDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }

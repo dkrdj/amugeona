@@ -1,6 +1,7 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.InedibleDto;
+import com.shashashark.amugeona.model.entity.Inedible;
 import com.shashashark.amugeona.model.repository.InedibleRepository;
 import com.shashashark.amugeona.model.service.InedibleService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,9 @@ public class InedibleServiceImpl implements InedibleService {
 
     @Override
     public void writeInedible(InedibleDto inedibleDto) {
-        inedibleRepository.save(toEntity(inedibleDto));
+        Inedible inedible = toEntity(inedibleDto);
+        System.out.println(inedible);
+        inedibleRepository.save(inedible);
     }
 
     @Override
