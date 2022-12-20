@@ -4,11 +4,11 @@ import com.shashashark.amugeona.model.dto.IngredientDto;
 import com.shashashark.amugeona.model.repository.IngredientRepository;
 import com.shashashark.amugeona.model.service.IngredientService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,29 +19,9 @@ public class IngredientServiceImpl implements IngredientService {
     private final IngredientRepository ingredientRepository;
 
     @Override
-    public Optional<IngredientDto> selectOne(String name) {
-        return Optional.ofNullable(toDto(ingredientRepository.findByNameContaining(name).orElseThrow()));
+    public List<IngredientDto> selectAll(String name) {
+        PageRequest pageRequest = PageRequest.of(0, 30);
+        return ingredientRepository.findByNameContaining(name, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    @Override
-    public List<IngredientDto> selectAll() {
-        return ingredientRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-    @Override
-    public void writeIngredient(IngredientDto ingredientDto) {
-        ingredientRepository.save(toEntity(ingredientDto));
-    }
-
-//    @Override
-//    public void updateIngredient(IngredientDto ingredientDto) {
-//        Ingredient ingredient = ingredientRepository.findById(ingredientDto.getIngredientSeq()).orElseThrow();
-//        ingredient.modify(ingredientDto.getName());
-//    }
-//
-//    @Override
-//    public void deleteIngredient(Long ingredientSeq) {
-//        ingredientRepository.deleteById(ingredientSeq);
-//    }
-//
 }

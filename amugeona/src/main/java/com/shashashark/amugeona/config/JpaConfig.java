@@ -18,7 +18,6 @@ public class JpaConfig {
     private final StarRepository starRepository;
     private final InbodyRepository inbodyRepository;
     private final IngredientRepository ingredientRepository;
-
     private final InedibleRepository inedibleRepository;
     private final RecipeRepository recipeRepository;
     private final RecipeCommentRepository recipeCommentRepository;

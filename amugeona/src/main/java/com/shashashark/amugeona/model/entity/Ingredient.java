@@ -19,8 +19,4 @@ public class Ingredient {
     private Long ingredientSeq;
 
     private String name;
-
-    public void modify(String name) {
-        this.name = name;
-    }
 }
