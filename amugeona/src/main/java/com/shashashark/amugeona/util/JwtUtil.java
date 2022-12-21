@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
 
 @Component
 public final class JwtUtil {
@@ -27,7 +26,6 @@ public final class JwtUtil {
                 .claim("name", user.getName())
                 .claim("nickname", user.getNickname())
                 .claim("profileImg", user.getProfileImg())
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
                 .signWith(SignatureAlgorithm.HS256, SALT.getBytes(StandardCharsets.UTF_8))
                 .compact();
     }

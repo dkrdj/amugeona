@@ -18,17 +18,14 @@ public class Article extends BaseTime {
     private Long articleSeq;
     @Column(name = "user_seq")
     private Long userSeq;
-
-    @ManyToOne
-    @JoinColumn(name = "user_seq", insertable = false, updatable = false)
-    private User user;
-
     private Long boardSeq;
     private String title;
     private String content;
     private Long like;
-
     private Long viewCnt;
+    @ManyToOne
+    @JoinColumn(name = "user_seq", insertable = false, updatable = false)
+    private User user;
 
     public void modify(String title, String content) {
         this.title = title;

@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RecipeContentDto {
     private Long contentSeq;
-
-    private Long recipe_seq;
+    private Long recipeSeq;
     private String content;
     private Long contentIdx;
 }
