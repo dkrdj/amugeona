@@ -24,6 +24,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean checkUser(String userId, String nickname) {
+        return userRepository.findByUserIdOrNickname(userId, nickname).isPresent();
+    }
+
+
+    @Override
     public void addUser(UserDto userDto) {
         userRepository.save(toEntity(userDto));
     }

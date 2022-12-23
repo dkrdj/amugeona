@@ -40,6 +40,10 @@ public class UserController {
     //회원가입
     @PostMapping("/signup")
     public ResponseEntity<String> addUser(@RequestBody UserDto userDto) {
+        //아이디 & 닉네임 중복검사 후 true로 오면 이미 존재하는 것이므로 fail
+        if (userService.checkUser(userDto.getUserId(), userDto.getNickname()))
+            return new ResponseEntity<>(FAIL, HttpStatus.OK);
+
         userService.addUser(userDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }

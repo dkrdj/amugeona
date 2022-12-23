@@ -11,6 +11,8 @@ public interface UserService {
     //비밀번호 찾기에 사용하기 위한 id로 유저 찾기
     Optional<UserDto> getUser(String userId);
 
+    boolean checkUser(String userId, String nickname);
+
     //회원가입에 사용
     void addUser(UserDto userDto);
 
