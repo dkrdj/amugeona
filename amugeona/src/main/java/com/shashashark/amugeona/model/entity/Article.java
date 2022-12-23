@@ -23,13 +23,16 @@ public class Article extends BaseTime {
     private String content;
     private Long like;
     private Long viewCnt;
+    private String info;
+
     @ManyToOne
     @JoinColumn(name = "user_seq", insertable = false, updatable = false)
     private User user;
 
-    public void modify(String title, String content) {
+    public void modify(String title, String content, String info) {
         this.title = title;
         this.content = content;
+        this.info = info;
     }
 
     public void updateLike(Long like) {

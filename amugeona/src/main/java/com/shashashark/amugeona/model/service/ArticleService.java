@@ -13,9 +13,9 @@ public interface ArticleService {
 
     List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page);
 
-    List<ArticleDto> searchTitle(String title, String orderBy, int page);
+    List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page);
 
-    List<ArticleDto> searchContent(String content, String orderBy, int page);
+    List<ArticleDto> searchContent(Long boardSeq, String content, String orderBy, int page);
 
     void writeArticle(ArticleDto articleDto);
 
@@ -34,6 +34,8 @@ public interface ArticleService {
                 .title(article.getTitle())
                 .content(article.getContent())
                 .like(article.getLike())
+                .viewCnt(article.getViewCnt())
+                .info(article.getInfo())
                 .createdAt(article.getCreatedAt())
                 .modifiedAt(article.getModifiedAt())
                 .build();
@@ -46,7 +48,7 @@ public interface ArticleService {
                 .boardSeq(articleDto.getBoardSeq())
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
-                .like(articleDto.getLike())
+                .info(articleDto.getInfo())
                 .build();
     }
 }

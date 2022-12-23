@@ -36,17 +36,17 @@ public class ArticleServiceImpl implements ArticleService {
 
 
     @Override
-    public List<ArticleDto> searchTitle(String title, String orderBy, int page) {
+    public List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
         PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAllByTitleContaining(title, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
+        return articleRepository.findAllByBoardSeqAndTitleContaining(boardSeq, title, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public List<ArticleDto> searchContent(String content, String orderBy, int page) {
+    public List<ArticleDto> searchContent(Long boardSeq, String content, String orderBy, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
         PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAllByContentContaining(content, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
+        return articleRepository.findAllByBoardSeqAndContentContaining(boardSeq, content, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -57,7 +57,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void updateArticle(ArticleUpdateParam param) {
         Article article = articleRepository.findById(param.getArticleSeq()).orElseThrow();
-        article.modify(param.getTitle(), param.getContent());
+        article.modify(param.getTitle(), param.getContent(), param.getInfo());
     }
 
     @Override

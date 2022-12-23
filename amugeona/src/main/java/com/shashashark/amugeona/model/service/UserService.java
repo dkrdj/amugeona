@@ -33,6 +33,7 @@ public interface UserService {
     //DB에서 불러올때
     default UserDto toDto(User user) {
         return new UserDto().builder()
+                .userSeq(user.getUserSeq())
                 .userId(user.getUserId())
                 .password(user.getPassword())
                 .email(user.getEmail())
