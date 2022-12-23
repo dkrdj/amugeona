@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Like {
+public class ArticleLike {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

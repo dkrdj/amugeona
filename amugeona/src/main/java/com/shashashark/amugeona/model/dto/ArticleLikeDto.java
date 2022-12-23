@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeDto {
+public class ArticleLikeDto {
     private Long likeSeq;
 
     private Long userSeq;

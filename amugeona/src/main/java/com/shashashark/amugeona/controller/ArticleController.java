@@ -1,11 +1,11 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
-import com.shashashark.amugeona.model.dto.LikeDto;
+import com.shashashark.amugeona.model.dto.ArticleLikeDto;
 import com.shashashark.amugeona.model.param.ArticleUpdateParam;
 import com.shashashark.amugeona.model.param.UserInfo;
+import com.shashashark.amugeona.model.service.ArticleLikeService;
 import com.shashashark.amugeona.model.service.ArticleService;
-import com.shashashark.amugeona.model.service.LikeService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class ArticleController {
     private static final String FAIL = "fail";
     private final JwtUtil jwtUtil;
     private final ArticleService articleService;
-    private final LikeService likeService;
+    private final ArticleLikeService articleLikeService;
     @GetMapping("/list")
     public ResponseEntity<List<ArticleDto>> list(Long boardSeq, String orderBy, int page) {
         return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
@@ -82,19 +82,28 @@ public class ArticleController {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         String result;
         HttpStatus status;
+
+        //로그인 유저가 없으면 FAIL
+        if (loginUser == null) {
+            status = HttpStatus.UNAUTHORIZED;
+            result = FAIL;
+        }
         //로그인이 되어있고 좋아요를 안눌렀을 경우 추가
-        if (loginUser != null && !likeService.selectOne(loginUser.getUserSeq(), articleSeq).isPresent()) {
-            LikeDto likeDto = LikeDto.builder()
+        else if (!articleLikeService.findOne(loginUser.getUserSeq(), articleSeq)) {
+            ArticleLikeDto articleLikeDto = ArticleLikeDto.builder()
                     .userSeq(loginUser.getUserSeq())
                     .articleSeq(articleSeq)
                     .build();
-            likeService.writeLike(likeDto);
+            articleLikeService.writeLike(articleLikeDto);
             articleService.updateLike(articleSeq);
             status = HttpStatus.OK;
             result = SUCCESS;
-        } else {
-            status = HttpStatus.UNAUTHORIZED;
-            result = FAIL;
+        }
+        //좋아요를 눌렀었는데 다시 누른 경우에는 좋아요 취소
+        else {
+            articleLikeService.deleteLike(loginUser.getUserSeq(), articleSeq);
+            status = HttpStatus.OK;
+            result = SUCCESS;
         }
         return new ResponseEntity<>(result, status);
     }

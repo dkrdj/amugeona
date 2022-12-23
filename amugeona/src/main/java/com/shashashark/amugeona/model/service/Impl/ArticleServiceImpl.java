@@ -68,6 +68,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void updateLike(Long articleSeq) {
         Article article = articleRepository.findById(articleSeq).orElseThrow();
-        article.updateLike(article.getLike() + 1);
+        article.updateLike(article.getArticleLike() + 1);
     }
 }

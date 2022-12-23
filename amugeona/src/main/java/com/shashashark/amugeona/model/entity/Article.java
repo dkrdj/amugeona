@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@DynamicInsert
 public class Article extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +23,7 @@ public class Article extends BaseTime {
     private Long boardSeq;
     private String title;
     private String content;
-    private Long like;
+    private Long articleLike;
     private Long viewCnt;
     private String info;
 
@@ -35,8 +37,8 @@ public class Article extends BaseTime {
         this.info = info;
     }
 
-    public void updateLike(Long like) {
-        this.like = like;
+    public void updateLike(Long articleLike) {
+        this.articleLike = articleLike;
     }
 
     public void updateViewCnt() {

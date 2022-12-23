@@ -21,7 +21,7 @@ public class JpaConfig {
     private final InedibleRepository inedibleRepository;
     private final RecipeRepository recipeRepository;
     private final RecipeCommentRepository recipeCommentRepository;
-    private final LikeRepository likeRepository;
+    private final ArticleLikeRepository articleLikeRepository;
     @Bean
     public UserService userService() {
         return new UserServiceImpl(userRepository);
@@ -78,7 +78,7 @@ public class JpaConfig {
     }
 
     @Bean
-    public LikeService likeService() {
-        return new LikeServiceImpl(likeRepository);
+    public ArticleLikeService articleLikeService() {
+        return new ArticleArticleLikeServiceImpl(articleLikeRepository);
     }
 }

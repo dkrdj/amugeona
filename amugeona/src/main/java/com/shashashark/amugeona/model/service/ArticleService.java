@@ -33,7 +33,7 @@ public interface ArticleService {
                 .boardSeq(article.getBoardSeq())
                 .title(article.getTitle())
                 .content(article.getContent())
-                .like(article.getLike())
+                .articleLike(article.getArticleLike())
                 .viewCnt(article.getViewCnt())
                 .info(article.getInfo())
                 .createdAt(article.getCreatedAt())
@@ -43,7 +43,6 @@ public interface ArticleService {
 
     default Article toEntity(ArticleDto articleDto){
         return new Article().builder()
-                .articleSeq(articleDto.getArticleSeq())
                 .userSeq(articleDto.getUserSeq())
                 .boardSeq(articleDto.getBoardSeq())
                 .title(articleDto.getTitle())

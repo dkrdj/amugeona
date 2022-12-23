@@ -18,7 +18,7 @@ public class ArticleDto {
     private Long boardSeq;
     private String title;
     private String content;
-    private Long like;
+    private Long articleLike;
 
     private Long viewCnt;
     private String info;
