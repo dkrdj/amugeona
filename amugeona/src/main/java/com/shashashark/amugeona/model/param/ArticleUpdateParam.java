@@ -14,4 +14,5 @@ public class ArticleUpdateParam {
     private Long articleSeq;
     private String title;
     private String content;
+    private String info;
 }

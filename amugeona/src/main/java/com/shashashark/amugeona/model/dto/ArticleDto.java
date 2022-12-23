@@ -19,6 +19,9 @@ public class ArticleDto {
     private String title;
     private String content;
     private Long like;
+
+    private Long viewCnt;
+    private String info;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }
