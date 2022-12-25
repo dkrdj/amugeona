@@ -14,4 +14,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByBoardSeq(Long boardSeq, Pageable pageable);
 
+    List<Article> findAllBy(Pageable pageable);
 }
