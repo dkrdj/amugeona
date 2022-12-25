@@ -5,7 +5,6 @@ import com.shashashark.amugeona.model.param.StarUpdateParam;
 import com.shashashark.amugeona.model.param.UserInfo;
 import com.shashashark.amugeona.model.service.StarService;
 import com.shashashark.amugeona.util.JwtUtil;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,6 @@ public class StarController {
         starService.writeStar(starDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
-
     @PutMapping("/modify")
     public ResponseEntity<String> modify(HttpServletRequest request, StarUpdateParam param) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
@@ -60,4 +58,6 @@ public class StarController {
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
+
+
 }

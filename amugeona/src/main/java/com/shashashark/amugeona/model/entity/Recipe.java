@@ -1,9 +1,6 @@
 package com.shashashark.amugeona.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
@@ -15,6 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @DynamicInsert
+@ToString
 @Table(name = "recipes")
 public class Recipe {
     @Id

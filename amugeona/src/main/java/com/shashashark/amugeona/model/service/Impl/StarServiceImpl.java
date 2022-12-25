@@ -47,6 +47,7 @@ public class StarServiceImpl implements StarService {
 
     private void updateRecipeStar(Star star, Integer before, Integer after) {
         Recipe recipe = recipeRepository.findById(star.getRecipeSeq()).orElseThrow();
+        System.out.println(recipe.toString());
         Double sum = recipe.getStarRating() * recipe.getStarCnt();
         Integer starCnt = recipe.getStarCnt();
         sum -= before;

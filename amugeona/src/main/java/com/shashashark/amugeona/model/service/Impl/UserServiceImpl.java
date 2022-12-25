@@ -40,4 +40,5 @@ public class UserServiceImpl implements UserService {
         User originUser = userRepository.findById(param.getUserSeq()).orElseThrow();
         originUser.updateUser(param.getPassword(), param.getEmail(), param.getNickname(), param.getProfileImg());
     }
+
 }
