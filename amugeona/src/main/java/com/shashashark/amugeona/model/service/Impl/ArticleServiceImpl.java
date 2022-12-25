@@ -34,6 +34,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAllByBoardSeq(boardSeq, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public List<ArticleDto> selectAllList(String orderBy, int page) {
+        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
+        PageRequest pageRequest = PageRequest.of(page, 10, sort);
+        return articleRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 
     @Override
     public List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page) {

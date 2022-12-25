@@ -13,6 +13,8 @@ public interface ArticleService {
 
     List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page);
 
+    List<ArticleDto> selectAllList(String orderBy, int page);
+
     List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page);
 
     List<ArticleDto> searchContent(Long boardSeq, String content, String orderBy, int page);

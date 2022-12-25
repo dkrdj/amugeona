@@ -27,9 +27,15 @@ public class ArticleController {
     private final JwtUtil jwtUtil;
     private final ArticleService articleService;
     private final ArticleLikeService articleLikeService;
+
     @GetMapping("/list")
     public ResponseEntity<List<ArticleDto>> list(Long boardSeq, String orderBy, int page) {
         return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
+    }
+
+    @GetMapping("/listAll")
+    public ResponseEntity<List<ArticleDto>> listAll(String orderBy, int page) {
+        return new ResponseEntity<>(articleService.selectAllList(orderBy, page), HttpStatus.OK);
     }
 
     @GetMapping("/detail")
