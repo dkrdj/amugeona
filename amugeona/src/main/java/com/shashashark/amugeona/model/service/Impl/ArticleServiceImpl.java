@@ -38,7 +38,7 @@ public class ArticleServiceImpl implements ArticleService {
     public List<ArticleDto> selectAllList(String orderBy, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
         PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAllBy(pageRequest).stream().map(this::toDto).collect(Collectors.toList());
+        return articleRepository.findAll(pageRequest).stream().map(this::toDto).collect(Collectors.toList());
     }
 
 
