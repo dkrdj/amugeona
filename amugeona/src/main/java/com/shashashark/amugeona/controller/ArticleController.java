@@ -33,7 +33,7 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
     }
 
-    @GetMapping("/listAll")
+    @GetMapping("/list-all")
     public ResponseEntity<List<ArticleDto>> listAll(String orderBy, int page) {
         return new ResponseEntity<>(articleService.selectAllList(orderBy, page), HttpStatus.OK);
     }
