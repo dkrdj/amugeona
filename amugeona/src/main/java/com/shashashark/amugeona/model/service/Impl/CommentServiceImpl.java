@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.CommentDto;
+import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.entity.Comment;
-import com.shashashark.amugeona.model.param.CommentUpdateParam;
 import com.shashashark.amugeona.model.repository.CommentRepository;
 import com.shashashark.amugeona.model.service.CommentService;
 import lombok.RequiredArgsConstructor;

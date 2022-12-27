@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.RecipeCommentDto;
-import com.shashashark.amugeona.model.param.CommentUpdateParam;
-import com.shashashark.amugeona.model.param.UserInfo;
+import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.RecipeCommentService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/recipeComment")
 @RequiredArgsConstructor
 @CrossOrigin
 public class RecipeCommentController {
@@ -26,17 +25,17 @@ public class RecipeCommentController {
     private final JwtUtil jwtUtil;
     private final RecipeCommentService recipeCommentService;
 
-    @GetMapping("/list")
+    @GetMapping("/recipeComments")
     public ResponseEntity<List<RecipeCommentDto>> list(Long recipeSeq, int page) {
         return new ResponseEntity<>(recipeCommentService.selectAll(recipeSeq, page), HttpStatus.OK);
     }
 
-    @GetMapping("/detail")
-    public ResponseEntity<RecipeCommentDto> detail(Long commentSeq) {
+    @GetMapping("/recipeComment/{commentSeq}")
+    public ResponseEntity<RecipeCommentDto> detail(@PathVariable Long commentSeq) {
         return new ResponseEntity<>(recipeCommentService.selectOne(commentSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/write")
+    @PostMapping("/recipeComment")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody RecipeCommentDto recipeCommentDto) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         recipeCommentDto.setUserSeq(loginUser.getUserSeq());
@@ -44,7 +43,7 @@ public class RecipeCommentController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/modify")
+    @PutMapping("/recipeComment")
     public ResponseEntity<String> modify(HttpServletRequest request, CommentUpdateParam param) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
@@ -54,7 +53,7 @@ public class RecipeCommentController {
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/recipeComment")
     public ResponseEntity<String> delete(HttpServletRequest request, Long commentSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         RecipeCommentDto recipeCommentDto = recipeCommentService.selectOne(commentSeq).orElseThrow();

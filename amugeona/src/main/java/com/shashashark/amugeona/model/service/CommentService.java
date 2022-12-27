@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.CommentDto;
+import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.entity.Comment;
-import com.shashashark.amugeona.model.param.CommentUpdateParam;
 
 import java.util.List;
 import java.util.Optional;

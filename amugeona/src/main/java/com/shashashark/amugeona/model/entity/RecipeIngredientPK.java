@@ -1,4 +1,4 @@
-package com.shashashark.amugeona.model.param;
+package com.shashashark.amugeona.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,7 +11,7 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class InediblePK implements Serializable {
+public class RecipeIngredientPK implements Serializable {
     private Long ingredientSeq;
-    private Long userSeq;
+    private Long recipeSeq;
 }

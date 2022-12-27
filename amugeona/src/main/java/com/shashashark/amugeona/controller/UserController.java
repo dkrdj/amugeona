@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.UserDto;
-import com.shashashark.amugeona.model.param.UserInfo;
-import com.shashashark.amugeona.model.param.UserUpdateParam;
+import com.shashashark.amugeona.model.dto.UserInfo;
+import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.service.UserService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/user")
 @RequiredArgsConstructor
 @CrossOrigin
 public class UserController {
@@ -27,7 +26,7 @@ public class UserController {
     private final JwtUtil jwtUtil;
 
     //id를 통해 비밀번호 찾기
-    @GetMapping("/find")
+    @GetMapping("/user")
     public ResponseEntity<String> getUser(String userId, String email) {
         if (userService.getUser(userId).orElseThrow().getEmail().equals(email)) {
             String pwd = userService.getUser(userId).orElseThrow().getPassword();
@@ -49,7 +48,7 @@ public class UserController {
     }
 
     //회원정보 수정
-    @PutMapping("/modify")
+    @PutMapping("/user")
     public ResponseEntity<String> modifyUser(@RequestBody UserUpdateParam param) {
         userService.modifyUser(param);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);

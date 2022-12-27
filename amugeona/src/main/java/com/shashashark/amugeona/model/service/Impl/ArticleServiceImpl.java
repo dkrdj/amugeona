@@ -1,8 +1,9 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
+import com.shashashark.amugeona.model.dto.ArticleSearchParam;
+import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
 import com.shashashark.amugeona.model.entity.Article;
-import com.shashashark.amugeona.model.param.ArticleUpdateParam;
 import com.shashashark.amugeona.model.repository.ArticleRepository;
 import com.shashashark.amugeona.model.service.ArticleService;
 import lombok.RequiredArgsConstructor;
@@ -35,25 +36,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> selectAllList(String orderBy, int page) {
-        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
-        PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAll(pageRequest).stream().map(this::toDto).collect(Collectors.toList());
-    }
+    public List<ArticleDto> search(ArticleSearchParam param) {
 
-
-    @Override
-    public List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page) {
-        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
-        PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAllByBoardSeqAndTitleContaining(boardSeq, title, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ArticleDto> searchContent(Long boardSeq, String content, String orderBy, int page) {
-        Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
-        PageRequest pageRequest = PageRequest.of(page, 10, sort);
-        return articleRepository.findAllByBoardSeqAndContentContaining(boardSeq, content, pageRequest).stream().map(this::toDto).collect(Collectors.toList());
+        return articleRepository.search(param).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
