@@ -1,9 +1,6 @@
 package com.shashashark.amugeona.controller;
 
-import com.shashashark.amugeona.model.dto.ArticleDto;
-import com.shashashark.amugeona.model.dto.ArticleLikeDto;
-import com.shashashark.amugeona.model.param.ArticleUpdateParam;
-import com.shashashark.amugeona.model.param.UserInfo;
+import com.shashashark.amugeona.model.dto.*;
 import com.shashashark.amugeona.model.service.ArticleLikeService;
 import com.shashashark.amugeona.model.service.ArticleService;
 import com.shashashark.amugeona.util.JwtUtil;
@@ -17,7 +14,6 @@ import java.util.List;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/article")
 @RequiredArgsConstructor
 @CrossOrigin
 public class ArticleController {
@@ -28,32 +24,22 @@ public class ArticleController {
     private final ArticleService articleService;
     private final ArticleLikeService articleLikeService;
 
-    @GetMapping("/list")
+    @GetMapping("/articles")
     public ResponseEntity<List<ArticleDto>> list(Long boardSeq, String orderBy, int page) {
         return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
     }
 
-    @GetMapping("/list-all")
-    public ResponseEntity<List<ArticleDto>> listAll(String orderBy, int page) {
-        return new ResponseEntity<>(articleService.selectAllList(orderBy, page), HttpStatus.OK);
-    }
-
-    @GetMapping("/detail")
-    public ResponseEntity<ArticleDto> detail(Long articleSeq) {
+    @GetMapping("/article/{articleSeq}")
+    public ResponseEntity<ArticleDto> detail(@PathVariable Long articleSeq) {
         return new ResponseEntity<>(articleService.selectOne(articleSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @GetMapping("/search-title")
-    public ResponseEntity<List<ArticleDto>> searchTitle(Long boardSeq, String title, String orderBy, int page) {
-        return new ResponseEntity<>(articleService.searchTitle(boardSeq, title, orderBy, page), HttpStatus.OK);
+    @GetMapping("/search")
+    public ResponseEntity<List<ArticleDto>> searchTitle(@RequestBody ArticleSearchParam param) {
+        return new ResponseEntity<>(articleService.search(param), HttpStatus.OK);
     }
 
-    @GetMapping("/search-content")
-    public ResponseEntity<List<ArticleDto>> searchContent(Long boardSeq, String content, String orderBy, int page) {
-        return new ResponseEntity<>(articleService.searchContent(boardSeq, content, orderBy, page), HttpStatus.OK);
-    }
-
-    @PutMapping("/modify")
+    @PutMapping("/article")
     public ResponseEntity<String> modify(HttpServletRequest request, ArticleUpdateParam param) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
@@ -63,7 +49,7 @@ public class ArticleController {
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @PostMapping("/write")
+    @PostMapping("/article")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ArticleDto articleDto) {
         System.out.println(request.getHeader(HEADER_AUTH));
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
@@ -72,7 +58,7 @@ public class ArticleController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/article")
     public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();

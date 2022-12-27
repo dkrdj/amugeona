@@ -11,8 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ArticleLikeDto {
     private Long likeSeq;
-
     private Long userSeq;
-
     private Long articleSeq;
 }

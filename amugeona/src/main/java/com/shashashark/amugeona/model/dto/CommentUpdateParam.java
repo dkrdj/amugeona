@@ -1,4 +1,4 @@
-package com.shashashark.amugeona.model.param;
+package com.shashashark.amugeona.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserUpdateParam {
+public class CommentUpdateParam {
     private Long userSeq;
-    private String password;
-    private String email;
-    private String nickname;
-    private String profileImg;
+    private Long commentSeq;
+    private String content;
 }

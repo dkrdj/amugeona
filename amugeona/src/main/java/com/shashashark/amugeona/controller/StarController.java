@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.StarDto;
-import com.shashashark.amugeona.model.param.StarUpdateParam;
-import com.shashashark.amugeona.model.param.UserInfo;
+import com.shashashark.amugeona.model.dto.StarUpdateParam;
+import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.StarService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 
 @RestController
-@RequestMapping("/star")
 @RequiredArgsConstructor
 @CrossOrigin
 public class StarController {
@@ -24,22 +23,23 @@ public class StarController {
     private final JwtUtil jwtUtil;
     private final StarService starService;
 
-    @GetMapping("/detail")
-    public ResponseEntity<StarDto> detail(HttpServletRequest request, Long recipeSeq) {
+    @GetMapping("/star/{recipeSeq}")
+    public ResponseEntity<StarDto> detail(HttpServletRequest request, @PathVariable Long recipeSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         return new ResponseEntity<>(starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow(), HttpStatus.OK);
     }
 
     //작성할 때 article도 업데이트 진행해줘야함
-    @PostMapping("/write")
+    @PostMapping("/star")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody StarDto starDto) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         starDto.setUserSeq(loginUser.getUserSeq());
         starService.writeStar(starDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
-    @PutMapping("/modify")
-    public ResponseEntity<String> modify(HttpServletRequest request, StarUpdateParam param) {
+
+    @PutMapping("/star")
+    public ResponseEntity<String> modify(HttpServletRequest request, @RequestBody StarUpdateParam param) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         if (Objects.equals(loginUser.getUserSeq(), param.getUserSeq())) {
             starService.updateStar(param);
@@ -48,7 +48,7 @@ public class StarController {
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/star")
     public ResponseEntity<String> delete(HttpServletRequest request, Long recipeSeq) {
         UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
         StarDto starDto = starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow();

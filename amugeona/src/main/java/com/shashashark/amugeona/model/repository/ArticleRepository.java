@@ -6,11 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ArticleRepository extends JpaRepository<Article, Long> {
-
-    List<Article> findAllByBoardSeqAndTitleContaining(Long boardSeq, String title, Pageable pageable);
-
-    List<Article> findAllByBoardSeqAndContentContaining(Long boardSeq, String title, Pageable pageable);
+public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
 
     List<Article> findAllByBoardSeq(Long boardSeq, Pageable pageable);
 

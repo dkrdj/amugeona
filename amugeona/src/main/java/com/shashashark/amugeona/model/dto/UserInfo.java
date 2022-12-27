@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class InedibleDto {
-    private Long ingredientSeq;
+@NoArgsConstructor
+@Builder
+public class UserInfo {
     private Long userSeq;
+    private String userId;
     private String name;
+    private String nickname;
+    private String profileImg;
 }

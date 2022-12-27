@@ -1,4 +1,4 @@
-package com.shashashark.amugeona.model.param;
+package com.shashashark.amugeona.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class CommentUpdateParam {
+@NoArgsConstructor
+public class StarUpdateParam {
+    private Long starSeq;
     private Long userSeq;
-    private Long commentSeq;
-    private String content;
+    private Integer rate;
 }

@@ -1,8 +1,9 @@
 package com.shashashark.amugeona.model.service;
 
 import com.shashashark.amugeona.model.dto.ArticleDto;
+import com.shashashark.amugeona.model.dto.ArticleSearchParam;
+import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
 import com.shashashark.amugeona.model.entity.Article;
-import com.shashashark.amugeona.model.param.ArticleUpdateParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,11 +14,7 @@ public interface ArticleService {
 
     List<ArticleDto> selectAll(Long boardSeq, String orderBy, int page);
 
-    List<ArticleDto> selectAllList(String orderBy, int page);
-
-    List<ArticleDto> searchTitle(Long boardSeq, String title, String orderBy, int page);
-
-    List<ArticleDto> searchContent(Long boardSeq, String content, String orderBy, int page);
+    List<ArticleDto> search(ArticleSearchParam param);
 
     void writeArticle(ArticleDto articleDto);
 

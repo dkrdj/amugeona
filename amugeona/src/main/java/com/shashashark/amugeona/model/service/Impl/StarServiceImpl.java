@@ -1,9 +1,9 @@
 package com.shashashark.amugeona.model.service.Impl;
 
 import com.shashashark.amugeona.model.dto.StarDto;
+import com.shashashark.amugeona.model.dto.StarUpdateParam;
 import com.shashashark.amugeona.model.entity.Recipe;
 import com.shashashark.amugeona.model.entity.Star;
-import com.shashashark.amugeona.model.param.StarUpdateParam;
 import com.shashashark.amugeona.model.repository.RecipeRepository;
 import com.shashashark.amugeona.model.repository.StarRepository;
 import com.shashashark.amugeona.model.service.StarService;

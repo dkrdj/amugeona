@@ -1,7 +1,7 @@
 package com.shashashark.amugeona.model.repository;
 
 import com.shashashark.amugeona.model.entity.Inedible;
-import com.shashashark.amugeona.model.param.InediblePK;
+import com.shashashark.amugeona.model.entity.InediblePK;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

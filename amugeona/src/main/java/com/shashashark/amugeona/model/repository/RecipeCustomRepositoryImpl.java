@@ -16,10 +16,10 @@ import static com.shashashark.amugeona.model.entity.QRecipe.recipe;
 import static com.shashashark.amugeona.model.entity.QRecipeIngredient.recipeIngredient;
 
 @Repository
-public class CustomRecipeRepositoryImpl implements CustomRecipeRepository {
+public class RecipeCustomRepositoryImpl implements RecipeCustomRepository {
     private final JPAQueryFactory query;
 
-    public CustomRecipeRepositoryImpl(JPAQueryFactory query) {
+    public RecipeCustomRepositoryImpl(JPAQueryFactory query) {
         this.query = query;
     }
 

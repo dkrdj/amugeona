@@ -33,7 +33,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public List<RecipeDto> searchTitle(Long userSeq, String orderBy, String title, int page) {
+    public List<RecipeDto> search(Long userSeq, String orderBy, String title, int page) {
         Sort sort = Sort.by(Sort.Direction.DESC, orderBy);
         PageRequest pageRequest = PageRequest.of(page, 10, sort);
         return recipeRepository.searchTitle(title, userSeq, pageRequest).stream().map(this::toDtoList).collect(Collectors.toList());

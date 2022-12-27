@@ -1,6 +1,5 @@
 package com.shashashark.amugeona.model.entity;
 
-import com.shashashark.amugeona.model.param.RecipeIngredientPK;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
