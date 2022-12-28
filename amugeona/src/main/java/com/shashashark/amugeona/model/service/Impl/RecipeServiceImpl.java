@@ -45,6 +45,7 @@ public class RecipeServiceImpl implements RecipeService {
                 .title(recipe.getTitle())
                 .thumbnail(recipe.getThumbnail())
                 .starRating(recipe.getStarRating())
+                .starCnt(recipe.getStarCnt())
                 .build();
     }
 }
