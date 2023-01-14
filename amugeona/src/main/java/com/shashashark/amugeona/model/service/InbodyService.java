@@ -15,7 +15,7 @@ public interface InbodyService {
     void deleteInbody(Long userSeq);
 
     default InbodyDto toDto(Inbody inbody) {
-        return new InbodyDto().builder()
+        return InbodyDto.builder()
                 .userSeq(inbody.getUserSeq())
                 .height(inbody.getHeight())
                 .weight(inbody.getWeight())
@@ -25,7 +25,7 @@ public interface InbodyService {
     }
 
     default Inbody toEntity(InbodyDto inbodyDto) {
-        return new Inbody().builder()
+        return Inbody.builder()
                 .userSeq(inbodyDto.getUserSeq())
                 .height(inbodyDto.getHeight())
                 .weight(inbodyDto.getWeight())

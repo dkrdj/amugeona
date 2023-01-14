@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.config.jwt.JwtProperties;
 import com.shashashark.amugeona.model.dto.CommentUpdateParam;
 import com.shashashark.amugeona.model.dto.RecipeCommentDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.RecipeCommentService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -37,16 +37,16 @@ public class RecipeCommentController {
 
     @PostMapping("/recipeComment")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody RecipeCommentDto recipeCommentDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        recipeCommentDto.setUserSeq(loginUser.getUserSeq());
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        recipeCommentDto.setUserSeq(userSeq);
         recipeCommentService.writeComment(recipeCommentDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @PutMapping("/recipeComment")
     public ResponseEntity<String> modify(HttpServletRequest request, CommentUpdateParam param) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(param.getUserSeq(), userSeq)) {
             recipeCommentService.updateComment(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -55,9 +55,9 @@ public class RecipeCommentController {
 
     @DeleteMapping("/recipeComment")
     public ResponseEntity<String> delete(HttpServletRequest request, Long commentSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         RecipeCommentDto recipeCommentDto = recipeCommentService.selectOne(commentSeq).orElseThrow();
-        if (Objects.equals(recipeCommentDto.getUserSeq(), loginUser.getUserSeq())) {
+        if (Objects.equals(recipeCommentDto.getUserSeq(), userSeq)) {
             recipeCommentService.deleteComment(commentSeq);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }

@@ -40,7 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     private RecipeDto toDtoList(Recipe recipe) {
-        return new RecipeDto().builder()
+        return RecipeDto.builder()
                 .recipeSeq(recipe.getRecipeSeq())
                 .title(recipe.getTitle())
                 .thumbnail(recipe.getThumbnail())

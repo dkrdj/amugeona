@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.config.jwt.JwtProperties;
 import com.shashashark.amugeona.model.dto.StarDto;
 import com.shashashark.amugeona.model.dto.StarUpdateParam;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.StarService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,23 +25,23 @@ public class StarController {
 
     @GetMapping("/star/{recipeSeq}")
     public ResponseEntity<StarDto> detail(HttpServletRequest request, @PathVariable Long recipeSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        return new ResponseEntity<>(starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow(), HttpStatus.OK);
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        return new ResponseEntity<>(starService.selectOne(userSeq, recipeSeq).orElseThrow(), HttpStatus.OK);
     }
 
     //작성할 때 article도 업데이트 진행해줘야함
     @PostMapping("/star")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody StarDto starDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        starDto.setUserSeq(loginUser.getUserSeq());
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        starDto.setUserSeq(userSeq);
         starService.writeStar(starDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @PutMapping("/star")
     public ResponseEntity<String> modify(HttpServletRequest request, @RequestBody StarUpdateParam param) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(loginUser.getUserSeq(), param.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(userSeq, param.getUserSeq())) {
             starService.updateStar(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -50,9 +50,9 @@ public class StarController {
 
     @DeleteMapping("/star")
     public ResponseEntity<String> delete(HttpServletRequest request, Long recipeSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        StarDto starDto = starService.selectOne(loginUser.getUserSeq(), recipeSeq).orElseThrow();
-        if (Objects.equals(loginUser.getUserSeq(), starDto.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        StarDto starDto = starService.selectOne(userSeq, recipeSeq).orElseThrow();
+        if (Objects.equals(userSeq, starDto.getUserSeq())) {
             starService.deleteStar(starDto.getStarSeq());
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }

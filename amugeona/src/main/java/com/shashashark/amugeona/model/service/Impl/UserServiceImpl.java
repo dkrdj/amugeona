@@ -6,6 +6,7 @@ import com.shashashark.amugeona.model.entity.User;
 import com.shashashark.amugeona.model.repository.UserRepository;
 import com.shashashark.amugeona.model.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,8 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final UserRepository userRepository;
 
     @Override
@@ -31,6 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(UserDto userDto) {
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userDto.setRole("ROLE_USER");
         userRepository.save(toEntity(userDto));
     }
 

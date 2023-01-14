@@ -21,7 +21,7 @@ public interface RecipeCommentService {
     void deleteComment(Long commentSeq);
 
     default RecipeCommentDto toDto(RecipeComment recipeComment) {
-        return new RecipeCommentDto().builder()
+        return RecipeCommentDto.builder()
                 .commentSeq(recipeComment.getCommentSeq())
                 .recipeSeq(recipeComment.getRecipeSeq())
                 .userSeq(recipeComment.getUserSeq())
@@ -33,7 +33,7 @@ public interface RecipeCommentService {
     }
 
     default RecipeComment toEntity(RecipeCommentDto recipeCommentDto) {
-        return new RecipeComment().builder()
+        return RecipeComment.builder()
                 .commentSeq(recipeCommentDto.getCommentSeq())
                 .recipeSeq(recipeCommentDto.getRecipeSeq())
                 .userSeq(recipeCommentDto.getUserSeq())

@@ -1,8 +1,8 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.config.jwt.JwtProperties;
 import com.shashashark.amugeona.model.dto.ReplyCommentDto;
 import com.shashashark.amugeona.model.dto.ReplyCommentUpdateParam;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.ReplyCommentService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -36,16 +36,16 @@ public class ReplyCommentController {
 
     @PostMapping("/reply")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ReplyCommentDto replyCommentDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        replyCommentDto.setUserSeq(loginUser.getUserSeq());
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        replyCommentDto.setUserSeq(userSeq);
         replyCommentService.writeReply(replyCommentDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @PutMapping("/reply")
     public ResponseEntity<String> modify(HttpServletRequest request, ReplyCommentUpdateParam param) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(param.getUserSeq(), userSeq)) {
             replyCommentService.updateReply(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -54,9 +54,9 @@ public class ReplyCommentController {
 
     @DeleteMapping("/reply")
     public ResponseEntity<String> delete(HttpServletRequest request, Long replySeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         ReplyCommentDto replyComment = replyCommentService.selectOne(replySeq).orElseThrow();
-        if (Objects.equals(loginUser.getUserSeq(), replyComment.getUserSeq())) {
+        if (Objects.equals(userSeq, replyComment.getUserSeq())) {
             replyCommentService.deleteReply(replySeq);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }

@@ -9,7 +9,7 @@ public interface IngredientService {
     List<IngredientDto> selectAll(String name);
 
     default IngredientDto toDto(Ingredient ingredient) {
-        return new IngredientDto().builder()
+        return IngredientDto.builder()
                 .ingredientSeq(ingredient.getIngredientSeq())
                 .name(ingredient.getName())
                 .build();

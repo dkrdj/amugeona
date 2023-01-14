@@ -16,7 +16,7 @@ public interface InedibleService {
     void deleteInedible(Long userSeq, Long ingredientSeq);
 
     default InedibleDto toDto(Inedible inedible) {
-        return new InedibleDto().builder()
+        return InedibleDto.builder()
                 .ingredientSeq(inedible.getIngredientSeq())
                 .userSeq(inedible.getUserSeq())
                 .name(inedible.getIngredient().getName())
@@ -24,7 +24,7 @@ public interface InedibleService {
     }
 
     default Inedible toEntity(InedibleDto inedibleDto) {
-        return new Inedible().builder()
+        return Inedible.builder()
                 .ingredientSeq(inedibleDto.getIngredientSeq())
                 .userSeq(inedibleDto.getUserSeq())
                 .build();

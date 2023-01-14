@@ -20,7 +20,7 @@ public interface CommentService {
     void deleteComment(Long commentSeq);
 
     default CommentDto toDto(Comment comment) {
-        return new CommentDto().builder()
+        return CommentDto.builder()
                 .commentSeq(comment.getCommentSeq())
                 .articleSeq(comment.getArticleSeq())
                 .nickname(comment.getUser().getNickname())
@@ -31,7 +31,7 @@ public interface CommentService {
     }
 
     default Comment toEntity(CommentDto commentDto) {
-        return new Comment().builder()
+        return Comment.builder()
                 .commentSeq(commentDto.getCommentSeq())
                 .articleSeq(commentDto.getArticleSeq())
                 .content(commentDto.getContent())

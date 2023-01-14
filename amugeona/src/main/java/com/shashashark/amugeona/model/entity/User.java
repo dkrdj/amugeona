@@ -26,6 +26,7 @@ public class User {
     private String name;
     private String nickname;
     private String profile_img;
+    private String role;
 
     public void updateUser(String password, String email, String nickname, String profile_img) {
         this.password = password;

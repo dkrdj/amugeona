@@ -12,7 +12,7 @@ public interface ArticleLikeService {
     void deleteLike(Long userSeq, Long articleSeq);
 
     default ArticleLikeDto toDto(ArticleLike articleLike) {
-        return new ArticleLikeDto().builder()
+        return ArticleLikeDto.builder()
                 .likeSeq(articleLike.getLikeSeq())
                 .userSeq(articleLike.getUserSeq())
                 .articleSeq(articleLike.getArticleSeq())
@@ -20,7 +20,7 @@ public interface ArticleLikeService {
     }
 
     default ArticleLike toEntity(ArticleLikeDto articleLikeDto) {
-        return new ArticleLike().builder()
+        return ArticleLike.builder()
                 .userSeq(articleLikeDto.getUserSeq())
                 .articleSeq(articleLikeDto.getArticleSeq())
                 .build();

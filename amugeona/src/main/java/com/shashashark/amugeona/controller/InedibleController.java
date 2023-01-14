@@ -1,7 +1,7 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.config.jwt.JwtProperties;
 import com.shashashark.amugeona.model.dto.InedibleDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.InedibleService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,13 +24,13 @@ public class InedibleController {
 
     @GetMapping("/inedibles")
     public ResponseEntity<List<InedibleDto>> list(HttpServletRequest request) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        return new ResponseEntity<>(inedibleService.selectAll(loginUser.getUserSeq()), HttpStatus.OK);
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        return new ResponseEntity<>(inedibleService.selectAll(userSeq), HttpStatus.OK);
     }
 
     @PostMapping("/inedible")
     public ResponseEntity<String> write(HttpServletRequest request, Long ingredientSeq) {
-        Long userSeq = jwtUtil.getToken(request.getHeader(HEADER_AUTH)).getUserSeq();
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         InedibleDto inedibleDto = new InedibleDto().builder()
                 .ingredientSeq(ingredientSeq)
                 .userSeq(userSeq)
@@ -41,8 +41,8 @@ public class InedibleController {
 
     @DeleteMapping("/inedible")
     public ResponseEntity<String> delete(HttpServletRequest request, Long ingredientSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        inedibleService.deleteInedible(loginUser.getUserSeq(), ingredientSeq);
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        inedibleService.deleteInedible(userSeq, ingredientSeq);
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 }

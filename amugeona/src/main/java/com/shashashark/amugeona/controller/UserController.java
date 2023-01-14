@@ -1,7 +1,6 @@
 package com.shashashark.amugeona.controller;
 
 import com.shashashark.amugeona.model.dto.UserDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.service.UserService;
 import com.shashashark.amugeona.util.JwtUtil;
@@ -9,10 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -52,36 +47,5 @@ public class UserController {
     public ResponseEntity<String> modifyUser(@RequestBody UserUpdateParam param) {
         userService.modifyUser(param);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-    }
-
-    //로그인
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(String id, String password) {
-        UserDto user = userService.getUser(id).orElseThrow();
-
-        HashMap<String, Object> result = new HashMap<>();
-        HttpStatus status;
-
-        try {
-            if (user.getPassword().equals(password)) {
-                UserInfo token = UserInfo.builder()
-                        .userSeq(user.getUserSeq())
-                        .userId(user.getUserId())
-                        .name(user.getName())
-                        .nickname(user.getNickname())
-                        .profileImg(user.getProfileImg())
-                        .build();
-                result.put(HEADER_AUTH, jwtUtil.createToken(token));
-                result.put(MESSAGE, SUCCESS);
-            } else {
-                result.put(MESSAGE, FAIL);
-            }
-            status = HttpStatus.ACCEPTED;
-        } catch (UnsupportedEncodingException e) {
-            result.put(MESSAGE, FAIL);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-
-        return new ResponseEntity<>(result, status);
     }
 }

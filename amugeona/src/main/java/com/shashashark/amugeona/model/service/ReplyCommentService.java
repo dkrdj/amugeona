@@ -20,7 +20,7 @@ public interface ReplyCommentService {
     void deleteReply(Long replySeq);
 
     default ReplyCommentDto toDto(ReplyComment replyComment) {
-        return new ReplyCommentDto().builder()
+        return ReplyCommentDto.builder()
                 .replySeq(replyComment.getReplySeq())
                 .rootSeq(replyComment.getRootSeq())
                 .userSeq(replyComment.getUserSeq())
@@ -32,7 +32,7 @@ public interface ReplyCommentService {
     }
 
     default ReplyComment toEntity(ReplyCommentDto replyCommentDto) {
-        return new ReplyComment().builder()
+        return ReplyComment.builder()
                 .replySeq(replyCommentDto.getReplySeq())
                 .rootSeq(replyCommentDto.getRootSeq())
                 .userSeq(replyCommentDto.getUserSeq())

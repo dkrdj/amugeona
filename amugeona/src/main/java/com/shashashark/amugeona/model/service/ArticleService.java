@@ -25,7 +25,7 @@ public interface ArticleService {
     void updateLike(Long articleSeq);
 
     default ArticleDto toDto(Article article) {
-        return new ArticleDto().builder()
+        return ArticleDto.builder()
                 .articleSeq(article.getArticleSeq())
                 .userSeq(article.getUserSeq())
                 .nickname(article.getUser().getNickname())
@@ -40,8 +40,8 @@ public interface ArticleService {
                 .build();
     }
 
-    default Article toEntity(ArticleDto articleDto){
-        return new Article().builder()
+    default Article toEntity(ArticleDto articleDto) {
+        return Article.builder()
                 .userSeq(articleDto.getUserSeq())
                 .boardSeq(articleDto.getBoardSeq())
                 .title(articleDto.getTitle())

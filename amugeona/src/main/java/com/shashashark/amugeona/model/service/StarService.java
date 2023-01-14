@@ -16,7 +16,7 @@ public interface StarService {
     void deleteStar(Long starSeq);
 
     default StarDto toDto(Star star) {
-        return new StarDto().builder()
+        return StarDto.builder()
                 .starSeq(star.getStarSeq())
                 .recipeSeq(star.getRecipeSeq())
                 .userSeq(star.getUserSeq())
@@ -25,7 +25,7 @@ public interface StarService {
     }
 
     default Star toEntity(StarDto starDto) {
-        return new Star().builder()
+        return Star.builder()
                 .starSeq(starDto.getStarSeq())
                 .recipeSeq(starDto.getRecipeSeq())
                 .userSeq(starDto.getUserSeq())

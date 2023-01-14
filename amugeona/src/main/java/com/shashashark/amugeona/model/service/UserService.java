@@ -21,7 +21,7 @@ public interface UserService {
 
     // DB에 저장할 때
     default User toEntity(UserDto userDto) {
-        return new User().builder()
+        return User.builder()
                 .userId(userDto.getUserId())
                 .password(userDto.getPassword())
                 .email(userDto.getEmail())
@@ -29,12 +29,13 @@ public interface UserService {
                 .name(userDto.getName())
                 .nickname(userDto.getNickname())
                 .profile_img(userDto.getProfileImg())
+                .role(userDto.getRole())
                 .build();
     }
 
     //DB에서 불러올때
     default UserDto toDto(User user) {
-        return new UserDto().builder()
+        return UserDto.builder()
                 .userSeq(user.getUserSeq())
                 .userId(user.getUserId())
                 .password(user.getPassword())
@@ -43,6 +44,7 @@ public interface UserService {
                 .name(user.getName())
                 .nickname(user.getNickname())
                 .profileImg(user.getProfile_img())
+                .role(user.getRole())
                 .build();
     }
 

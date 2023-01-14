@@ -11,7 +11,7 @@ public interface RecipeService {
 
 
     default RecipeDto toDto(Recipe recipe) {
-        return new RecipeDto().builder()
+        return RecipeDto.builder()
                 .recipeSeq(recipe.getRecipeSeq())
                 .title(recipe.getTitle())
                 .thumbnail(recipe.getThumbnail())

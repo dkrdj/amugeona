@@ -1,7 +1,7 @@
 package com.shashashark.amugeona.controller;
 
+import com.shashashark.amugeona.config.jwt.JwtProperties;
 import com.shashashark.amugeona.model.dto.InbodyDto;
-import com.shashashark.amugeona.model.dto.UserInfo;
 import com.shashashark.amugeona.model.service.InbodyService;
 import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
@@ -24,22 +24,22 @@ public class InbodyController {
 
     @GetMapping("/inbody")
     public ResponseEntity<InbodyDto> detail(HttpServletRequest request) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        return new ResponseEntity<>(inbodyService.selectOne(loginUser.getUserSeq()).orElseThrow(), HttpStatus.OK);
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        return new ResponseEntity<>(inbodyService.selectOne(userSeq).orElseThrow(), HttpStatus.OK);
     }
 
     @PostMapping("/inbody")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody InbodyDto inbodyDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        inbodyDto.setUserSeq(loginUser.getUserSeq());
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        inbodyDto.setUserSeq(userSeq);
         inbodyService.writeInbody(inbodyDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @PutMapping("/inbody")
     public ResponseEntity<String> modify(HttpServletRequest request, InbodyDto inbodyDto) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(inbodyDto.getUserSeq(), loginUser.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(inbodyDto.getUserSeq(), userSeq)) {
             inbodyService.updateInbody(inbodyDto);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -48,9 +48,9 @@ public class InbodyController {
 
     @DeleteMapping("/inbody")
     public ResponseEntity<String> delete(HttpServletRequest request) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         //인바디 삭제 다시 생각해보기
-        inbodyService.deleteInbody(loginUser.getUserSeq());
+        inbodyService.deleteInbody(userSeq);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 }

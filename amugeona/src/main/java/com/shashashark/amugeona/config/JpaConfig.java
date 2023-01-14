@@ -3,9 +3,11 @@ package com.shashashark.amugeona.config;
 import com.shashashark.amugeona.model.repository.*;
 import com.shashashark.amugeona.model.service.*;
 import com.shashashark.amugeona.model.service.Impl.*;
+import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @RequiredArgsConstructor
@@ -22,9 +24,16 @@ public class JpaConfig {
     private final RecipeRepository recipeRepository;
     private final RecipeCommentRepository recipeCommentRepository;
     private final ArticleLikeRepository articleLikeRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Bean
+    public JwtUtil jwtUtil() {
+        return new JwtUtil();
+    }
+
     @Bean
     public UserService userService() {
-        return new UserServiceImpl(userRepository);
+        return new UserServiceImpl(bCryptPasswordEncoder, userRepository);
     }
 
     @Bean

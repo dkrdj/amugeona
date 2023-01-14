@@ -1,7 +1,7 @@
 #aws 때문에 빌드시 오류뜨는거 방지용인데 잘안됨 수정해야함
 logging:
   level:
-#    org:
+    #    org:
     #      hibernate:
     #        type:
     #          descriptor:
@@ -20,6 +20,8 @@ logging:
 #db connection
 spring:
   jpa:
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
@@ -27,9 +29,9 @@ spring:
         use_sql_comments: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://amugeona.cqwvfj0vnltg.us-east-1.rds.amazonaws.com:3306/AMUGEONA
-    username: dkrdj1000
-    password: tititir1
+    url: jdbc:mysql://localhost:3306/amugeona
+    username: root
+    password: ssafy
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -39,7 +41,7 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
-      
+
 #aws 설정
 cloud:
   aws:

@@ -1,6 +1,10 @@
 package com.shashashark.amugeona.controller;
 
-import com.shashashark.amugeona.model.dto.*;
+import com.shashashark.amugeona.config.jwt.JwtProperties;
+import com.shashashark.amugeona.model.dto.ArticleDto;
+import com.shashashark.amugeona.model.dto.ArticleLikeDto;
+import com.shashashark.amugeona.model.dto.ArticleSearchParam;
+import com.shashashark.amugeona.model.dto.ArticleUpdateParam;
 import com.shashashark.amugeona.model.service.ArticleLikeService;
 import com.shashashark.amugeona.model.service.ArticleService;
 import com.shashashark.amugeona.util.JwtUtil;
@@ -41,8 +45,8 @@ public class ArticleController {
 
     @PutMapping("/article")
     public ResponseEntity<String> modify(HttpServletRequest request, ArticleUpdateParam param) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        if (Objects.equals(param.getUserSeq(), loginUser.getUserSeq())) {
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(param.getUserSeq(), userSeq)) {
             articleService.updateArticle(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -52,17 +56,17 @@ public class ArticleController {
     @PostMapping("/article")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ArticleDto articleDto) {
         System.out.println(request.getHeader(HEADER_AUTH));
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        articleDto.setUserSeq(loginUser.getUserSeq());
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        articleDto.setUserSeq(userSeq);
         articleService.writeArticle(articleDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
     @DeleteMapping("/article")
     public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();
-        if (Objects.equals(loginUser.getUserSeq(), article.getUserSeq())) {
+        if (Objects.equals(userSeq, article.getUserSeq())) {
             articleService.deleteArticle(articleSeq);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
@@ -71,32 +75,20 @@ public class ArticleController {
 
     @PostMapping("/like")
     public ResponseEntity<String> like(HttpServletRequest request, Long articleSeq) {
-        UserInfo loginUser = jwtUtil.getToken(request.getHeader(HEADER_AUTH));
-        String result;
-        HttpStatus status;
-
-        //로그인 유저가 없으면 FAIL
-        if (loginUser == null) {
-            status = HttpStatus.UNAUTHORIZED;
-            result = FAIL;
-        }
+        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         //로그인이 되어있고 좋아요를 안눌렀을 경우 추가
-        else if (!articleLikeService.findOne(loginUser.getUserSeq(), articleSeq)) {
+        if (!articleLikeService.findOne(userSeq, articleSeq)) {
             ArticleLikeDto articleLikeDto = ArticleLikeDto.builder()
-                    .userSeq(loginUser.getUserSeq())
+                    .userSeq(userSeq)
                     .articleSeq(articleSeq)
                     .build();
             articleLikeService.writeLike(articleLikeDto);
             articleService.updateLike(articleSeq);
-            status = HttpStatus.OK;
-            result = SUCCESS;
         }
         //좋아요를 눌렀었는데 다시 누른 경우에는 좋아요 취소
         else {
-            articleLikeService.deleteLike(loginUser.getUserSeq(), articleSeq);
-            status = HttpStatus.OK;
-            result = SUCCESS;
+            articleLikeService.deleteLike(userSeq, articleSeq);
         }
-        return new ResponseEntity<>(result, status);
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 }
