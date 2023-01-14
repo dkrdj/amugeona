@@ -37,11 +37,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(loginRequestDto.getUserId(), loginRequestDto.getPassword());
 
-        Authentication authentication =
-                this.getAuthenticationManager().authenticate(authenticationToken);
-        UserDetailsCustom userDetailsCustom = (UserDetailsCustom) authentication.getPrincipal();
-
-        return authentication;
+        return this.getAuthenticationManager().authenticate(authenticationToken);
     }
 
     // JWT Token 생성해서 response에 담아주기
