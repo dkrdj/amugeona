@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
@@ -47,6 +46,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public void updateArticle(ArticleUpdateParam param) {
         Article article = articleRepository.findById(param.getArticleSeq()).orElseThrow();
         article.modify(param.getTitle(), param.getContent(), param.getInfo());
@@ -58,6 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public void updateLike(Long articleSeq) {
         Article article = articleRepository.findById(articleSeq).orElseThrow();
         article.updateLike(article.getArticleLike() + 1);

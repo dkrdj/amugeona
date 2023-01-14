@@ -5,10 +5,8 @@ import com.shashashark.amugeona.model.repository.ArticleLikeRepository;
 import com.shashashark.amugeona.model.service.ArticleLikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ArticleArticleLikeServiceImpl implements ArticleLikeService {
     private final ArticleLikeRepository articleLikeRepository;

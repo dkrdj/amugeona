@@ -28,12 +28,12 @@ public class RecipeCommentController {
         return new ResponseEntity<>(recipeCommentService.selectAll(recipeSeq, page), HttpStatus.OK);
     }
 
-    @GetMapping("/recipeComment/{commentSeq}")
+    @GetMapping("/recipeComments/{commentSeq}")
     public ResponseEntity<RecipeCommentDto> detail(@PathVariable Long commentSeq) {
         return new ResponseEntity<>(recipeCommentService.selectOne(commentSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/recipeComment")
+    @PostMapping("/recipeComments")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody RecipeCommentDto recipeCommentDto) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         recipeCommentDto.setUserSeq(userSeq);
@@ -41,18 +41,19 @@ public class RecipeCommentController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/recipeComment")
-    public ResponseEntity<String> modify(HttpServletRequest request, CommentUpdateParam param) {
+    @PutMapping("/recipeComments/{commentSeq}")
+    public ResponseEntity<String> modify(HttpServletRequest request, @PathVariable Long commentSeq, CommentUpdateParam param) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         if (Objects.equals(param.getUserSeq(), userSeq)) {
+            param.setCommentSeq(commentSeq);
             recipeCommentService.updateComment(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @DeleteMapping("/recipeComment")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long commentSeq) {
+    @DeleteMapping("/recipeComments/{commentSeq}")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long commentSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         RecipeCommentDto recipeCommentDto = recipeCommentService.selectOne(commentSeq).orElseThrow();
         if (Objects.equals(recipeCommentDto.getUserSeq(), userSeq)) {

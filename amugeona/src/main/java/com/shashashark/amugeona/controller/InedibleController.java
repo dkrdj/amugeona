@@ -7,10 +7,7 @@ import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -29,7 +26,7 @@ public class InedibleController {
         return new ResponseEntity<>(inedibleService.selectAll(userSeq), HttpStatus.OK);
     }
 
-    @PostMapping("/inedible")
+    @PostMapping("/inedibles")
     public ResponseEntity<String> write(HttpServletRequest request, Long ingredientSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         InedibleDto inedibleDto = InedibleDto.builder()
@@ -40,8 +37,8 @@ public class InedibleController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @DeleteMapping("/inedible")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long ingredientSeq) {
+    @DeleteMapping("/inedibles/{ingredientSeq}")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long ingredientSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         inedibleService.deleteInedible(userSeq, ingredientSeq);
         return new ResponseEntity<>(FAIL, HttpStatus.OK);

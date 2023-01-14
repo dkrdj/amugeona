@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class InbodyServiceImpl implements InbodyService {
     private final InbodyRepository inbodyRepository;
@@ -27,6 +26,7 @@ public class InbodyServiceImpl implements InbodyService {
     }
 
     @Override
+    @Transactional
     public void updateInbody(InbodyDto inbodyDto) {
         Inbody inbody = inbodyRepository.findById(inbodyDto.getUserSeq()).orElseThrow();
         inbody.modify(inbodyDto.getHeight(), inbodyDto.getWeight(), inbodyDto.getMuscle(), inbodyDto.getFat());

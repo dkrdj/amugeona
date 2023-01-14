@@ -11,50 +11,45 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/recipe/{recipeSeq}")
 public class StarController {
     private static final String SUCCESS = "success";
-    private static final String FAIL = "fail";
     private final JwtUtil jwtUtil;
     private final StarService starService;
 
-    @GetMapping("/star/{recipeSeq}")
-    public ResponseEntity<StarDto> detail(HttpServletRequest request, @PathVariable Long recipeSeq) {
-        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        return new ResponseEntity<>(starService.selectOne(userSeq, recipeSeq).orElseThrow(), HttpStatus.OK);
+    @GetMapping("/stars")
+    public ResponseEntity<List<StarDto>> list(@PathVariable Long recipeSeq) {
+        return new ResponseEntity<>(starService.selectAll(recipeSeq), HttpStatus.OK);
     }
 
     //작성할 때 article도 업데이트 진행해줘야함
-    @PostMapping("/star")
-    public ResponseEntity<String> write(HttpServletRequest request, @RequestBody StarDto starDto) {
+    @PostMapping("/stars")
+    public ResponseEntity<String> write(HttpServletRequest request, @PathVariable Long recipeSeq, @RequestBody StarDto starDto) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         starDto.setUserSeq(userSeq);
+        starDto.setRecipeSeq(recipeSeq);
         starService.writeStar(starDto);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/star")
-    public ResponseEntity<String> modify(HttpServletRequest request, @RequestBody StarUpdateParam param) {
+    @PutMapping("/stars")
+    public ResponseEntity<String> modify(HttpServletRequest request, @PathVariable Long recipeSeq, @RequestBody StarUpdateParam param) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        if (Objects.equals(userSeq, param.getUserSeq())) {
-            starService.updateStar(param);
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(FAIL, HttpStatus.OK);
+        param.setUserSeq(userSeq);
+        param.setRecipeSeq(recipeSeq);
+        starService.updateStar(param);
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @DeleteMapping("/star")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long recipeSeq) {
+    @DeleteMapping("/stars")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long recipeSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        StarDto starDto = starService.selectOne(userSeq, recipeSeq).orElseThrow();
-        if (Objects.equals(userSeq, starDto.getUserSeq())) {
-            starService.deleteStar(starDto.getStarSeq());
-            return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(FAIL, HttpStatus.OK);
+        starService.deleteStar(userSeq, recipeSeq);
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
 

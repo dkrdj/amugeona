@@ -27,12 +27,12 @@ public class ReplyCommentController {
         return new ResponseEntity<>(replyCommentService.selectAll(rootSeq, page), HttpStatus.OK);
     }
 
-    @GetMapping("/reply/{replySeq}")
+    @GetMapping("/replies/{replySeq}")
     public ResponseEntity<ReplyCommentDto> detail(@PathVariable Long replySeq) {
         return new ResponseEntity<>(replyCommentService.selectOne(replySeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/reply")
+    @PostMapping("/replies")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ReplyCommentDto replyCommentDto) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         replyCommentDto.setUserSeq(userSeq);
@@ -40,18 +40,19 @@ public class ReplyCommentController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/reply")
-    public ResponseEntity<String> modify(HttpServletRequest request, ReplyCommentUpdateParam param) {
+    @PutMapping("/replies/{replySeq}")
+    public ResponseEntity<String> modify(HttpServletRequest request, @PathVariable Long replySeq, ReplyCommentUpdateParam param) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         if (Objects.equals(param.getUserSeq(), userSeq)) {
+            param.setReplySeq(replySeq);
             replyCommentService.updateReply(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @DeleteMapping("/reply")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long replySeq) {
+    @DeleteMapping("/replies/{replySeq}")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long replySeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         ReplyCommentDto replyComment = replyCommentService.selectOne(replySeq).orElseThrow();
         if (Objects.equals(userSeq, replyComment.getUserSeq())) {

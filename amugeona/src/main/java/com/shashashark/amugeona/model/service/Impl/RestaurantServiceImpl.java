@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantRepository restaurantRepository;
@@ -23,6 +22,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public void addImage(Long restaurantSeq, String image) {
         Restaurant restaurant = restaurantRepository.findById(restaurantSeq).orElseThrow();
         restaurant.setImage(image);

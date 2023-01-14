@@ -20,13 +20,13 @@ public class InbodyController {
     private final JwtUtil jwtUtil;
     private final InbodyService inbodyService;
 
-    @GetMapping("/inbody")
+    @GetMapping("/inbodies")
     public ResponseEntity<InbodyDto> detail(HttpServletRequest request) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         return new ResponseEntity<>(inbodyService.selectOne(userSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/inbody")
+    @PostMapping("/inbodies")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody InbodyDto inbodyDto) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         inbodyDto.setUserSeq(userSeq);
@@ -34,21 +34,13 @@ public class InbodyController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/inbody")
-    public ResponseEntity<String> modify(HttpServletRequest request, InbodyDto inbodyDto) {
-        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        if (Objects.equals(inbodyDto.getUserSeq(), userSeq)) {
+    @PutMapping("/inbodies/{userSeq}")
+    public ResponseEntity<String> modify(HttpServletRequest request, @RequestBody InbodyDto inbodyDto, @PathVariable Long userSeq) {
+        Long loginUserSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
+        if (Objects.equals(userSeq, loginUserSeq)) {
             inbodyService.updateInbody(inbodyDto);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/inbody")
-    public ResponseEntity<String> delete(HttpServletRequest request) {
-        Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        //인바디 삭제 다시 생각해보기
-        inbodyService.deleteInbody(userSeq);
-        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 }

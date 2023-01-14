@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StarUpdateParam {
-    private Long starSeq;
+    private Long recipeSeq;
     private Long userSeq;
     private Integer rate;
 }

@@ -27,12 +27,12 @@ public class CommentController {
         return new ResponseEntity<>(commentService.selectAll(articleSeq, page), HttpStatus.OK);
     }
 
-    @GetMapping("/comment/{commentSeq}")
+    @GetMapping("/comments/{commentSeq}")
     public ResponseEntity<CommentDto> detail(@PathVariable Long commentSeq) {
         return new ResponseEntity<>(commentService.selectOne(commentSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @PostMapping("/comment")
+    @PostMapping("/comments")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody CommentDto commentDto) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         commentDto.setUserSeq(userSeq);
@@ -40,18 +40,19 @@ public class CommentController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @PutMapping("/comment")
-    public ResponseEntity<String> modify(HttpServletRequest request, CommentUpdateParam param) {
+    @PutMapping("/comments/{commentSeq}")
+    public ResponseEntity<String> modify(HttpServletRequest request, @PathVariable Long commentSeq, @RequestBody CommentUpdateParam param) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         if (Objects.equals(param.getUserSeq(), userSeq)) {
+            param.setCommentSeq(commentSeq);
             commentService.updateComment(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @DeleteMapping("/comment")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long commentSeq) {
+    @DeleteMapping("/comments/{commentSeq}")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long commentSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         CommentDto comment = commentService.selectOne(commentSeq).orElseThrow();
         if (Objects.equals(userSeq, comment.getUserSeq())) {

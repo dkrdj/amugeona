@@ -49,7 +49,7 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .authorizeRequests()
                 //인가
-                .antMatchers("/user/**").permitAll()
+                .antMatchers("/login", "/signup", "/user", "/swagger-ui/**").permitAll()
                 .anyRequest()
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .and()

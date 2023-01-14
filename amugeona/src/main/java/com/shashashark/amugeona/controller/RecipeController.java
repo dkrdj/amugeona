@@ -27,13 +27,13 @@ public class RecipeController {
         return new ResponseEntity<>(recipeService.selectAll(userSeq, orderBy, page), HttpStatus.OK);
     }
 
-    @GetMapping("/recipe/search")
+    @GetMapping("/recipes/search")
     public ResponseEntity<List<RecipeDto>> search(HttpServletRequest request, String orderBy, String title, int page) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         return new ResponseEntity<>(recipeService.search(userSeq, orderBy, title, page), HttpStatus.OK);
     }
 
-    @GetMapping("/recipe/{recipeSeq}")
+    @GetMapping("/recipes/{recipeSeq}")
     public ResponseEntity<RecipeDto> detail(@PathVariable Long recipeSeq) {
         return new ResponseEntity<>(recipeService.selectOne(recipeSeq).orElseThrow(), HttpStatus.OK);
     }

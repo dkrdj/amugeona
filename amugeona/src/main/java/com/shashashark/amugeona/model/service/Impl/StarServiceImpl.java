@@ -11,18 +11,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class StarServiceImpl implements StarService {
     private final StarRepository starRepository;
     private final RecipeRepository recipeRepository;
 
     @Override
-    public Optional<StarDto> selectOne(Long userSeq, Long recipeSeq) {
-        return Optional.ofNullable(toDto(starRepository.findByUserSeqAndRecipeSeq(userSeq, recipeSeq).orElseThrow()));
+    public List<StarDto> selectAll(Long recipeSeq) {
+        return starRepository.findByRecipeSeq(recipeSeq).stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -32,22 +32,23 @@ public class StarServiceImpl implements StarService {
     }
 
     @Override
+    @Transactional
     public void updateStar(StarUpdateParam param) {
-        Star star = starRepository.findById(param.getStarSeq()).orElseThrow();
+        Star star = starRepository.findByUserSeqAndRecipeSeq(param.getUserSeq(), param.getRecipeSeq()).orElseThrow();
         updateRecipeStar(star, star.getRate(), param.getRate());
         star.modify(param.getRate());
     }
 
     @Override
-    public void deleteStar(Long starSeq) {
-        Star star = starRepository.findById(starSeq).orElseThrow();
+    @Transactional
+    public void deleteStar(Long userSeq, Long recipeSeq) {
+        Star star = starRepository.findByUserSeqAndRecipeSeq(userSeq, recipeSeq).orElseThrow();
         updateRecipeStar(star, star.getRate(), 0);
-        starRepository.deleteById(starSeq);
+        starRepository.delete(star);
     }
 
     private void updateRecipeStar(Star star, Integer before, Integer after) {
         Recipe recipe = recipeRepository.findById(star.getRecipeSeq()).orElseThrow();
-        System.out.println(recipe.toString());
         Double sum = recipe.getStarRating() * recipe.getStarCnt();
         Integer starCnt = recipe.getStarCnt();
         sum -= before;

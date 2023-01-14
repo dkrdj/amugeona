@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class RecipeCommentServiceImpl implements RecipeCommentService {
 
@@ -39,6 +38,7 @@ public class RecipeCommentServiceImpl implements RecipeCommentService {
     }
 
     @Override
+    @Transactional
     public void updateComment(CommentUpdateParam param) {
         RecipeComment comment = recipeCommentRepository.findById(param.getCommentSeq()).orElseThrow();
         comment.modify(param.getContent());

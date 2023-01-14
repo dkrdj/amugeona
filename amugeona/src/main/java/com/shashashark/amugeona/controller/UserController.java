@@ -16,8 +16,8 @@ public class UserController {
     private final UserService userService;
 
     //id를 통해 비밀번호 찾기
-    @GetMapping("/user")
-    public ResponseEntity<String> getUser(String userId, String email) {
+    @GetMapping("/users/find")
+    public ResponseEntity<String> find(String userId, String email) {
         if (userService.getUser(userId).orElseThrow().getEmail().equals(email)) {
             String pwd = userService.getUser(userId).orElseThrow().getPassword();
             return new ResponseEntity<>(pwd, HttpStatus.OK);
@@ -38,8 +38,9 @@ public class UserController {
     }
 
     //회원정보 수정
-    @PutMapping("/user")
-    public ResponseEntity<String> modifyUser(@RequestBody UserUpdateParam param) {
+    @PutMapping("/users/{userSeq}")
+    public ResponseEntity<String> modifyUser(@PathVariable Long userSeq, @RequestBody UserUpdateParam param) {
+        param.setUserSeq(userSeq);
         userService.modifyUser(param);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }

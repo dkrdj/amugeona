@@ -15,7 +15,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class ReplyCommentServiceImpl implements ReplyCommentService {
     private final ReplyCommentRepository replyCommentRepository;
@@ -37,6 +36,7 @@ public class ReplyCommentServiceImpl implements ReplyCommentService {
     }
 
     @Override
+    @Transactional
     public void updateReply(ReplyCommentUpdateParam param) {
         ReplyComment replyComment = replyCommentRepository.findById(param.getReplySeq()).orElseThrow();
         replyComment.modify(param.getContent());

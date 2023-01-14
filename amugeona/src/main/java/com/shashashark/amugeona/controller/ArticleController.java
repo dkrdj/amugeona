@@ -32,27 +32,28 @@ public class ArticleController {
         return new ResponseEntity<>(articleService.selectAll(boardSeq, orderBy, page), HttpStatus.OK);
     }
 
-    @GetMapping("/article/{articleSeq}")
+    @GetMapping("/articles/{articleSeq}")
     public ResponseEntity<ArticleDto> detail(@PathVariable Long articleSeq) {
         return new ResponseEntity<>(articleService.selectOne(articleSeq).orElseThrow(), HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/articles/search")
     public ResponseEntity<List<ArticleDto>> searchTitle(@RequestBody ArticleSearchParam param) {
         return new ResponseEntity<>(articleService.search(param), HttpStatus.OK);
     }
 
-    @PutMapping("/article")
-    public ResponseEntity<String> modify(HttpServletRequest request, ArticleUpdateParam param) {
+    @PutMapping("/articles/{articleSeq}")
+    public ResponseEntity<String> modify(HttpServletRequest request, @PathVariable Long articleSeq, @RequestBody ArticleUpdateParam param) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         if (Objects.equals(param.getUserSeq(), userSeq)) {
+            param.setArticleSeq(articleSeq);
             articleService.updateArticle(param);
             return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
         }
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @PostMapping("/article")
+    @PostMapping("/articles")
     public ResponseEntity<String> write(HttpServletRequest request, @RequestBody ArticleDto articleDto) {
         System.out.println(request.getHeader(HEADER_AUTH));
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
@@ -61,8 +62,8 @@ public class ArticleController {
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @DeleteMapping("/article")
-    public ResponseEntity<String> delete(HttpServletRequest request, Long articleSeq) {
+    @DeleteMapping("/articles/{articleSeq}")
+    public ResponseEntity<String> delete(HttpServletRequest request, @PathVariable Long articleSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         ArticleDto article = articleService.selectOne(articleSeq).orElseThrow();
         if (Objects.equals(userSeq, article.getUserSeq())) {
@@ -72,8 +73,8 @@ public class ArticleController {
         return new ResponseEntity<>(FAIL, HttpStatus.OK);
     }
 
-    @PostMapping("/like")
-    public ResponseEntity<String> like(HttpServletRequest request, Long articleSeq) {
+    @PostMapping("/articles/{articleSeq}/like")
+    public ResponseEntity<String> like(HttpServletRequest request, @PathVariable Long articleSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
         //로그인이 되어있고 좋아요를 안눌렀을 경우 추가
         if (!articleLikeService.findOne(userSeq, articleSeq)) {

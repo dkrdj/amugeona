@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StarDto {
-    private Long starSeq;
     private Long recipeSeq;
     private Long userSeq;
     private Integer rate;

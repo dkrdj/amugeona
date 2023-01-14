@@ -14,7 +14,6 @@ import java.util.Optional;
 
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
@@ -40,6 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void modifyUser(UserUpdateParam param) {
         //유저 불러와서 수정후 다시 집어넣기
         User originUser = userRepository.findById(param.getUserSeq()).orElseThrow();
