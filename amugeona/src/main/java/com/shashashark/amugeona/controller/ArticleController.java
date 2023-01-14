@@ -19,7 +19,6 @@ import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 public class ArticleController {
     private static final String HEADER_AUTH = "access-token";
     private static final String SUCCESS = "success";

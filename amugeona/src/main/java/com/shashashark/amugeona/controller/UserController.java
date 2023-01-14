@@ -3,7 +3,6 @@ package com.shashashark.amugeona.controller;
 import com.shashashark.amugeona.model.dto.UserDto;
 import com.shashashark.amugeona.model.dto.UserUpdateParam;
 import com.shashashark.amugeona.model.service.UserService;
-import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 public class UserController {
-    private static final String HEADER_AUTH = "access-token";
-    private static final String MESSAGE = "msg";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private final UserService userService;
-    private final JwtUtil jwtUtil;
 
     //id를 통해 비밀번호 찾기
     @GetMapping("/user")

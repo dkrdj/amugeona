@@ -15,9 +15,7 @@ import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 public class StarController {
-    private static final String HEADER_AUTH = "access-token";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private final JwtUtil jwtUtil;

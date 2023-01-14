@@ -7,16 +7,17 @@ import com.shashashark.amugeona.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin
 public class InedibleController {
-    private static final String HEADER_AUTH = "access-token";
     private static final String SUCCESS = "success";
     private static final String FAIL = "fail";
     private final JwtUtil jwtUtil;
@@ -31,7 +32,7 @@ public class InedibleController {
     @PostMapping("/inedible")
     public ResponseEntity<String> write(HttpServletRequest request, Long ingredientSeq) {
         Long userSeq = jwtUtil.getUserSeq(request.getHeader(JwtProperties.HEADER_STRING));
-        InedibleDto inedibleDto = new InedibleDto().builder()
+        InedibleDto inedibleDto = InedibleDto.builder()
                 .ingredientSeq(ingredientSeq)
                 .userSeq(userSeq)
                 .build();
