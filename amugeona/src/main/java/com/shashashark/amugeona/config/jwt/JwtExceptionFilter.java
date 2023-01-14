@@ -21,12 +21,11 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         try {
             filterChain.doFilter(request, response);
         } catch (TokenExpiredException e) {
-            System.out.println("인증 필터 전인가?");
-            setErrorResponse(request, response, e);
+            setErrorResponse(response, e);
         }
     }
 
-    private void setErrorResponse(HttpServletRequest request, HttpServletResponse response, TokenExpiredException e) throws IOException {
+    private void setErrorResponse(HttpServletResponse response, TokenExpiredException e) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setCharacterEncoding("UTF-8");
         Map<String, Object> body = new HashMap<>();

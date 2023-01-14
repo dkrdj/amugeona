@@ -39,7 +39,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         }
         String token = header.replace(JwtProperties.TOKEN_PREFIX, "");
 
-        // 토큰 검증 여기서 토큰 만료시 뭔가 해야함
+        // 토큰 검증 여기서 예외 발생시 jwtExceptionFilter에서 처리
         Long userSeq = JWT.require(Algorithm.HMAC512(JwtProperties.SECRET)).build().verify(token)
                 .getClaim("userSeq").asLong();
 
