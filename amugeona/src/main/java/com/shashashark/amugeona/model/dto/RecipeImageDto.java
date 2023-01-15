@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RecipeImageDto {
     private Long imgSeq;
-    private Long recipe_seq;
+    private Long recipeSeq;
     private String url;
     private Long contentIdx;
 }

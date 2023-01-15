@@ -12,13 +12,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "recipe_content")
 public class RecipeContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long contentSeq;
-    private Long recipe_seq;
+    @Column(name = "recipe_seq")
+    private Long recipeSeq;
     private String content;
     private Long contentIdx;
 }

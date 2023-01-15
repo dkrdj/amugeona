@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 @DynamicInsert
 @ToString
-@Table(name = "recipes")
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,7 +29,7 @@ public class Recipe {
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_seq", insertable = false, updatable = false)
-    private List<RecipeImage> recipeImgs;
+    private List<RecipeImage> recipeImages;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_seq", insertable = false, updatable = false)

@@ -1,8 +1,5 @@
 package com.shashashark.amugeona.model.dto;
 
-import com.shashashark.amugeona.model.entity.RecipeContent;
-import com.shashashark.amugeona.model.entity.RecipeImage;
-import com.shashashark.amugeona.model.entity.RecipeIngredient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +17,7 @@ public class RecipeDto {
     private String thumbnail;
     private Double starRating;
     private Integer starCnt;
-    private List<RecipeIngredient> recipeIngredients;
-    private List<RecipeContent> recipeContents;
-    private List<RecipeImage> recipeImages;
+    private List<RecipeIngredientDto> recipeIngredients;
+    private List<RecipeContentDto> recipeContents;
+    private List<RecipeImageDto> recipeImages;
 }

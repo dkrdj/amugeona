@@ -12,14 +12,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "recipe_img")
 public class RecipeImage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imgSeq;
 
-    private Long recipe_seq;
+    @Column(name = "recipe_seq")
+    private Long recipeSeq;
     private String url;
     private Long contentIdx;
 }

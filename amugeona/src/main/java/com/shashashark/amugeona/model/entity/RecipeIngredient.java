@@ -13,7 +13,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "recipe_ingre")
 @IdClass(RecipeIngredientPK.class)
 public class RecipeIngredient implements Serializable {
 

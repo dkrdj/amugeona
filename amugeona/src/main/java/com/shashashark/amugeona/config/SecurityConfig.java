@@ -56,6 +56,8 @@ public class SecurityConfig {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository))
                 .addFilterBefore(new JwtExceptionFilter(), JwtAuthorizationFilter.class)
+                .logout()
+                .and()
                 .build();
     }
 }
