@@ -32,7 +32,10 @@
 ---
 
 ### 로그인 / 회원가입
-
+<figure class="half">
+    <img src="img/Untitled.png" width="200px" height="700px">
+    <img src="img/Untitled%201.png" width="200px" height="700px">
+<figure>
 ![Untitled](img/Untitled.png)
 
 ![Untitled](img/Untitled%201.png)
