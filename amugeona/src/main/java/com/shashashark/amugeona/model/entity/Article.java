@@ -26,15 +26,17 @@ public class Article extends BaseTime {
     private Long articleLike;
     private Long viewCnt;
     private String info;
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "user_seq", insertable = false, updatable = false)
     private User user;
 
-    public void modify(String title, String content, String info) {
+    public void modify(String title, String content, String info, String url) {
         this.title = title;
         this.content = content;
         this.info = info;
+        this.url = url;
     }
 
     public void updateLike(Long articleLike) {

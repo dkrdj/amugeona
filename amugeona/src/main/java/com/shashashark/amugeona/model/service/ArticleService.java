@@ -35,6 +35,7 @@ public interface ArticleService {
                 .articleLike(article.getArticleLike())
                 .viewCnt(article.getViewCnt())
                 .info(article.getInfo())
+                .url(article.getUrl())
                 .createdAt(article.getCreatedAt())
                 .modifiedAt(article.getModifiedAt())
                 .build();
@@ -47,6 +48,7 @@ public interface ArticleService {
                 .title(articleDto.getTitle())
                 .content(articleDto.getContent())
                 .info(articleDto.getInfo())
+                .url(articleDto.getUrl())
                 .build();
     }
 }

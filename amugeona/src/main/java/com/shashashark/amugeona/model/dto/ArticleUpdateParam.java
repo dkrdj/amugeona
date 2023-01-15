@@ -15,4 +15,5 @@ public class ArticleUpdateParam {
     private String title;
     private String content;
     private String info;
+    private String url;
 }

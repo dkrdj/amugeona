@@ -49,7 +49,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional
     public void updateArticle(ArticleUpdateParam param) {
         Article article = articleRepository.findById(param.getArticleSeq()).orElseThrow();
-        article.modify(param.getTitle(), param.getContent(), param.getInfo());
+        article.modify(param.getTitle(), param.getContent(), param.getInfo(), param.getUrl());
     }
 
     @Override

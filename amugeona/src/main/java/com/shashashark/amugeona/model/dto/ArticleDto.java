@@ -21,6 +21,7 @@ public class ArticleDto {
     private Long articleLike;
     private Long viewCnt;
     private String info;
+    private String url;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 }
