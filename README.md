@@ -66,7 +66,7 @@
 ### 지도
 
 <div align="center">
-    <img src="img/Untitled%205.png" width="300px" height="600px">
+    <img src="img/Untitled%205.png" width="250px" height="500px">
 </div>
 
 - 위치 기반 서비스를 통해 주변 음식점 조회 기능
@@ -79,9 +79,9 @@
 ### 커뮤니티
 
 <div align="center">
-    <img src="img/Untitled%206.png" width="300px" height="600px">
-    <img src="img/Untitled%207.png" width="300px" height="600px">
-    <img src="img/Untitled%208.png" width="300px" height="600px">
+    <img src="img/Untitled%206.png" width="250px" height="500px">
+    <img src="img/Untitled%207.png" width="250px" height="500px">
+    <img src="img/Untitled%208.png" width="250px" height="500px">
 </div>
 
 - 게시판 CRUD
@@ -97,7 +97,7 @@
 ### 마이페이지
 
 <div align="center">
-    <img src="img/Untitled%209.png" width="300px" height="600px">
+    <img src="img/Untitled%209.png" width="250px" height="500px">
 </div>
 
 - 인바디
