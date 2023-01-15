@@ -12,7 +12,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name = "recipes_comment")
 public class RecipeComment extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

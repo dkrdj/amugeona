@@ -30,7 +30,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/amugeona # github 업로드를 위해 변경
-    username: root
+    username: ssafy
     password: ssafy
   mvc:
     pathmatch:
