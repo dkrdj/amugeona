@@ -32,13 +32,10 @@
 ---
 
 ### 로그인 / 회원가입
-<figure class="half">
-    <img src="img/Untitled.png" width="200px" height="700px">
-    <img src="img/Untitled%201.png" width="200px" height="700px">
-<figure>
-![Untitled](img/Untitled.png)
-
-![Untitled](img/Untitled%201.png)
+<div align="center">
+    <img src="img/Untitled.png" width="300px" height="600px">
+    <img src="img/Untitled%201.png" width="300px" height="600px">
+</div>
 
 - 로그인
     - Spring Security의 JwtAuthenticationFilter를 통해 로그인을 진행
@@ -49,12 +46,11 @@
     - 유저 가입 요청이 들어오면 ROLE_USER 권한 부여
 
 ### 레시피
-
-![Untitled](img/Untitled%202.png)
-
-![Untitled](img/Untitled%203.png)
-
-![Untitled](img/Untitled%204.png)
+<div align="center">
+    <img src="img/Untitled%202.png" width="300px" height="600px">
+    <img src="img/Untitled%203.png" width="300px" height="600px">
+    <img src="img/Untitled%204.png" width="300px" height="600px">
+</div>
 
 - Recipe 목록
     - ‘만 개의 레시피’ 크롤링을 통해 약 1000개의 레시피 정보 DB 저장
@@ -69,7 +65,9 @@
 
 ### 지도
 
-![Untitled](img/Untitled%205.png)
+<div align="center">
+    <img src="img/Untitled%205.png" width="300px" height="600px">
+</div>
 
 - 위치 기반 서비스를 통해 주변 음식점 조회 기능
     - 현재 위치에서 위도 경도의 범위를 조절하여 주변 음식점 정보 조회 가능
@@ -80,11 +78,11 @@
 
 ### 커뮤니티
 
-![Untitled](img/Untitled%206.png)
-
-![Untitled](img/Untitled%207.png)
-
-![Untitled](img/Untitled%208.png)
+<div align="center">
+    <img src="img/Untitled%206.png" width="300px" height="600px">
+    <img src="img/Untitled%207.png" width="300px" height="600px">
+    <img src="img/Untitled%208.png" width="300px" height="600px">
+</div>
 
 - 게시판 CRUD
     - 게시물 조회, 게시글 작성, 게시글 수정, 게시글 삭제
@@ -98,7 +96,9 @@
 
 ### 마이페이지
 
-![Untitled](img/Untitled%209.png)
+<div align="center">
+    <img src="img/Untitled%209.png" width="300px" height="600px">
+</div>
 
 - 인바디
 - 못 먹는 재료
@@ -110,10 +110,13 @@
 
 ## 🖥️aws 아키텍처
 
-![Untitled](img/Untitled%2010.png)
+<div align="center">
+    <img src="img/Untitled%2010.png">
+</div>
 
 ---
 
 ## 🖥️ERD
-
-![erd.png](img/erd.png)
+<div align="center">
+    <img src="img/erd.png"">
+</div>
