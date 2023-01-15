@@ -33,8 +33,8 @@
 
 ### 로그인 / 회원가입
 <div align="center">
-    <img src="img/Untitled.png" width="300px" height="600px">
-    <img src="img/Untitled%201.png" width="300px" height="600px">
+    <img src="img/Untitled.png" width="250px" height="500px">
+    <img src="img/Untitled%201.png" width="250px" height="500px">
 </div>
 
 - 로그인
@@ -47,9 +47,9 @@
 
 ### 레시피
 <div align="center">
-    <img src="img/Untitled%202.png" width="300px" height="600px">
-    <img src="img/Untitled%203.png" width="300px" height="600px">
-    <img src="img/Untitled%204.png" width="300px" height="600px">
+    <img src="img/Untitled%202.png" width="250px" height="500px">
+    <img src="img/Untitled%203.png" width="250px" height="500px">
+    <img src="img/Untitled%204.png" width="250px" height="500px">
 </div>
 
 - Recipe 목록
