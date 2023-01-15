@@ -51,6 +51,4 @@ public class StarController {
         starService.deleteStar(userSeq, recipeSeq);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
-
-
 }
