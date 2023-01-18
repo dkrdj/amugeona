@@ -54,7 +54,7 @@ public class SecurityConfig {
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager, userRepository))
+                .addFilter(new JwtAuthorizationFilter(userRepository))
                 .addFilterBefore(new JwtExceptionFilter(), JwtAuthorizationFilter.class)
                 .logout()
                 .and()
